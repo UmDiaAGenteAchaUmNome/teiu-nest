@@ -17,9 +17,8 @@ export class Produto extends Timestamps {
     imagem: string
 
     @Column()
-    imagemBackground?: string
+    imagemBanner?: string
 
     @Column()
     linkMarketplace?: string
-
 }

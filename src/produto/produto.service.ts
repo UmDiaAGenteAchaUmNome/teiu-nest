@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Produto } from 'src/entities/typeorm/produto';
+import { CloudinaryProdutoHelper } from 'src/helpers/cloudinary/CloudinaryProdutoHelper';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -8,13 +9,9 @@ export class ProdutoService {
 
     constructor(
         @InjectRepository(Produto)
-        private readonly produtoRepository: Repository<Produto>
+        private produtoRepository: Repository<Produto>,
+        private cloudinaryProdutoHelper: CloudinaryProdutoHelper
     ) {}
-
-    public async criarProduto(produto: Produto): Promise<Produto> {
-        await this.produtoRepository.save(produto)
-        return produto
-    }
 
     public async listarProdutos(): Promise<Produto[]> {
         return await this.produtoRepository.find()
@@ -24,7 +21,14 @@ export class ProdutoService {
         return await this.produtoRepository.findOneBy({id: idProduto})
     }
 
+    public async criarProduto(produto: Produto): Promise<Produto> {
+        produto = await this.cloudinaryProdutoHelper.uploadImagensProduto(produto)
+        await this.produtoRepository.save(produto)
+        return produto
+    }
+
     public async atualizarProduto(idProduto: number, produto: Produto): Promise<Produto> {
+        produto = await this.cloudinaryProdutoHelper.uploadImagensProduto(produto)
         await this.produtoRepository.update(idProduto, produto)
         return await this.buscarProdutoPorId(idProduto)
     }
