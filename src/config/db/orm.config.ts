@@ -1,7 +1,8 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Produto } from "src/entities/typeorm/produto";
+import { Banner } from "src/entities/typeorm/banner";
+import { Product } from "src/entities/typeorm/product";
 
 @Module({
     imports: [
@@ -15,7 +16,8 @@ import { Produto } from "src/entities/typeorm/produto";
             database: process.env.DB_SCHEMA,
             synchronize: true,
             entities: [
-                Produto
+                Product,
+                Banner
             ]
         }),
     ],

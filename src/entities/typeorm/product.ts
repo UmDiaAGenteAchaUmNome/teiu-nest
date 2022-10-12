@@ -2,23 +2,29 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "./scaffold/timestamps";
 
 @Entity()
-export class Produto extends Timestamps {
+export class Product extends Timestamps {
 
     @PrimaryGeneratedColumn()
     id: number
 
     @Column()
-    titulo: string
+    title: string
+
+    @Column()
+    subtitle: string
 
     @Column("text")
-    descricao: string
+    description: string
 
     @Column()
-    imagem: string
+    image: string
 
     @Column()
-    imagemBanner?: string
+    bannerImage?: string
 
     @Column()
-    linkMarketplace?: string
+    routerLink?: string
+
+    @Column()
+    altDescription?: string
 }

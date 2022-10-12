@@ -4,15 +4,15 @@ export abstract class Timestamps {
     @CreateDateColumn({
         type: "timestamp",
         default: () => "CURRENT_TIMESTAMP(6)",
-        name: 'criado_em'
+        name: 'created_at'
     })
-    criadoEm: Date
+    createdAt: Date
     
     @UpdateDateColumn({
         type: "timestamp",
         default: () => "CURRENT_TIMESTAMP(6)",
         onUpdate: "CURRENT_TIMESTAMP(6)",
-        name: 'atualizado_em'
+        name: 'updated_at'
     })
-    atualizadoEm: Date
+    updatedAt: Date
 }
