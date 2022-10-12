@@ -34,7 +34,7 @@ export class CloudinaryProductHelper extends CloudinaryHelper {
         const cloudinaryImage: CloudinaryImage = {
             title: this.buildImageTitle(title),
             data: image,
-            path: `teiu/produtos/${this.buildImageTitle(this.product.title)}`
+            path: `teiu/produtos/${this.buildImageTitle(this.product.title)}_${this.buildImageTitle(this.product.subtitle)}`
         }
 
         return cloudinaryImage

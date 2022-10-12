@@ -9,6 +9,7 @@ export class CloudinaryService {
     public async uploadImage(image: CloudinaryImage, transformation?: TransformationOptions): Promise<string> {
         try {
             cloudinary.config(CloudinaryCredentials)
+
             let uploadResponse = await cloudinary.uploader.upload(image.data, {
                 folder: image.path,
                 public_id: image.title,
@@ -19,8 +20,8 @@ export class CloudinaryService {
 
             return uploadResponse.url
         } catch(error) {
-            console.log(error)
-            throw new Error('Erro no upload da imagem')
+            console.error(error.error.code)
+            throw new Error(`Erro no upload da imagem: ${error.error.code}`)
         }
     }
     

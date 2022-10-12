@@ -21,10 +21,10 @@ export class CloudinaryBannerHelper extends CloudinaryHelper {
         const bannerImage = this.buildCloudinaryImage(this.banner.title, this.banner.image)
         const bgImage = this.buildCloudinaryImage(this.banner.title.concat('_bg'), this.banner.bgImage)
 
-        if(banner.image)
+        // if(banner.image)
             banner.image = await this.cloudinaryService.uploadImage(bannerImage)
 
-        if(banner.bgImage)
+        // if(banner.bgImage)
             banner.bgImage = await this.cloudinaryService.uploadImage(bgImage)
 
         return banner
