@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Filter } from 'src/entities/typeorm/filter/filter.orm';
 import { Product } from 'src/entities/typeorm/product';
 import { CloudinaryProductHelper } from 'src/helpers/cloudinary/CloudinaryProductHelper';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
@@ -11,11 +12,12 @@ export class ProductService {
         @InjectRepository(Product)
         private productRepository: Repository<Product>,
         
-        private cloudinaryProductHelper: CloudinaryProductHelper
+        private cloudinaryProductHelper: CloudinaryProductHelper,
+        private filter: Filter<Product>
     ) {}
 
-    public async listProducts(): Promise<Product[]> {
-        return await this.productRepository.find()
+    public async listProducts(filters?: Product): Promise<Product[]> {
+        return await this.productRepository.findBy(this.filter.build(filters))
     }
 
     public async findProductById(productId: number): Promise<Product> {

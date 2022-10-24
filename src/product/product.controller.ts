@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { Product } from 'src/entities/typeorm/product';
 import { ProductService } from './product.service';
 
@@ -10,8 +10,9 @@ export class ProductController {
     ) {}
 
     @Get()
-    public async listProducts(): Promise<Product[]> {
-        return await this.productService.listProducts()
+    public async listProducts(@Query() filters?: Product): Promise<Product[]> {
+        console.log('Fetching Products...')
+        return await this.productService.listProducts(filters)
     }
 
     @Get(':id')
