@@ -11,13 +11,12 @@ export class ProductController {
 
     @Get()
     public async listProducts(@Query() filters?: Product): Promise<Product[]> {
-        console.log('Fetching Products...')
         return await this.productService.listProducts(filters)
     }
 
     @Get(':id')
-    public async findProductById(@Param('id') idProduto: number): Promise<Product> {
-        return await this.productService.findProductById(idProduto)
+    public async findProductById(@Param('id') productId: number): Promise<Product> {
+        return await this.productService.findProductById(productId)
     }
 
     @Post()
@@ -26,8 +25,8 @@ export class ProductController {
     }
 
     @Put(':id')
-    public async updateProduct(@Param('id') idProduto: number, @Body() product: Product): Promise<Product> {
-        return await this.productService.updateProduct(idProduto, product)
+    public async updateProduct(@Param('id') productId: number, @Body() product: Product): Promise<Product> {
+        return await this.productService.updateProduct(productId, product)
     }
 
     @Delete(':id')
