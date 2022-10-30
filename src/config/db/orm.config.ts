@@ -3,6 +3,7 @@ import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Banner } from "src/entities/typeorm/banner";
 import { Product } from "src/entities/typeorm/product";
+import { User } from "src/entities/typeorm/user";
 
 @Module({
     imports: [
@@ -17,7 +18,8 @@ import { Product } from "src/entities/typeorm/product";
             synchronize: true,
             entities: [
                 Product,
-                Banner
+                Banner,
+                User
             ]
         }),
     ],

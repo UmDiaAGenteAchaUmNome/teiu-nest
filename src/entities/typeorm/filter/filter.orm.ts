@@ -3,17 +3,17 @@ import { Like } from "typeorm";
 
 @Injectable()
 export class Filter<T> {
-    public build(object: T) {
-        Object.keys(object).forEach(attr => {
-            if(!object[attr]) {
-                delete object[attr]
+    public build(filters: T) {
+        Object.keys(filters).forEach(attr => {
+            if(!filters[attr]) {
+                delete filters[attr]
             } else {
-                if(typeof(object[attr] === 'string')) {
-                    object[attr] = Like(`%${object[attr]}%`)
+                if(typeof(filters[attr] === 'string')) {
+                    filters[attr] = Like(`%${filters[attr]}%`)
                 }
             }
         })
 
-        return object
+        return filters
     }
 }
