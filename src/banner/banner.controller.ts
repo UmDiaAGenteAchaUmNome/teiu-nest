@@ -1,6 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Banner } from 'src/entities/typeorm/banner';
-import { JwtGuard } from 'src/guards/jwt.guard';
 import { BannerService } from './banner.service';
 
 @Controller('banner')
@@ -8,7 +7,7 @@ export class BannerController {
 
     constructor(
         private readonly bannerService: BannerService
-    ) {}
+    ) { }
 
     @Get()
     public async listBanners(): Promise<Banner[]> {
@@ -21,19 +20,19 @@ export class BannerController {
     }
 
     @Post()
-    @UseGuards(JwtGuard)
+    // @UseGuards(JwtGuard)
     public async createBanner(@Body() banner: Banner): Promise<Banner> {
         return await this.bannerService.createBanner(banner)
     }
-    
+
     @Put(':id')
-    @UseGuards(JwtGuard)
+    // @UseGuards(JwtGuard)
     public async updateBanner(@Param('id') bannerId: number, @Body() banner: Banner): Promise<Banner> {
         return await this.bannerService.updateBanner(bannerId, banner)
     }
-    
+
     @Delete(':id')
-    @UseGuards(JwtGuard)
+    // @UseGuards(JwtGuard)
     public async deleteBanner(@Param('id') bannerId: number): Promise<void> {
         await this.bannerService.deleteBanner(bannerId)
     }
