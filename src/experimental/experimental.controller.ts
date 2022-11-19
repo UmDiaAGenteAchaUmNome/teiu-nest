@@ -1,6 +1,6 @@
+import { CloudinaryImage } from '@apicore/teiu/lib/third-party';
 import { HttpService } from '@nestjs/axios';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CloudinaryImage } from 'src/entities/images/cloudinary/image.model';
 import { CryptHelper } from 'src/helpers/auth/crypt.helper';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 
@@ -11,7 +11,7 @@ export class ExperimentalController {
         private cloudinaryService: CloudinaryService,
         private http: HttpService,
         private crypt: CryptHelper
-    ) {}
+    ) { }
 
     @Post("image-upload")
     public async uploadImageToCloudinary(@Body() image: CloudinaryImage) {
@@ -21,7 +21,7 @@ export class ExperimentalController {
     @Get()
     public async checkCloudinaryResponse() {
         let response = await this.http.axiosRef.get('http://res.cloudinary.com/arpdevs-tecnologia/image/upload/v1664465213/exp/gow/Cleit%C3%A3o%20da%20Ma%C3%A7a.jpg')
-        
+
         console.log(response.data)
         return response.data
     }

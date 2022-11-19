@@ -1,6 +1,6 @@
+import { CloudinaryImage } from "@apicore/teiu/lib/third-party"
+import { Product } from "@apicore/teiu/lib/typeorm"
 import { Injectable } from "@nestjs/common"
-import { CloudinaryImage } from "src/entities/images/cloudinary/image.model"
-import { Product } from "src/entities/typeorm/product"
 import { CloudinaryService } from "src/third_party/images/cloudinary/cloudinary.service"
 import { CloudinaryHelper } from "./CloudinaryHelper"
 
@@ -21,10 +21,10 @@ export class CloudinaryProductHelper extends CloudinaryHelper {
         const productImage = this.buildCloudinaryImage(this.product.title, this.product.image)
         const bannerImage = this.buildCloudinaryImage(this.product.title.concat('_banner'), this.product.bannerImage)
 
-        if(product.image)
+        if (product.image)
             product.image = await this.cloudinaryService.uploadImage(productImage)
 
-        if(product.bannerImage)
+        if (product.bannerImage)
             product.bannerImage = await this.cloudinaryService.uploadImage(bannerImage)
 
         return product

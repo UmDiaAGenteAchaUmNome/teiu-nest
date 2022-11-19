@@ -1,5 +1,5 @@
+import { User } from '@apicore/teiu/lib/typeorm';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { User } from 'src/entities/typeorm/user';
 import { UserService } from './user.service';
 
 @Controller('user')

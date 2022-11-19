@@ -1,9 +1,9 @@
+import { Product } from '@apicore/teiu/lib/typeorm';
+import { Filter } from '@apicore/teiu/lib/typeorm/core/filter';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Filter } from 'src/entities/typeorm/filter/filter.orm';
-import { Product } from 'src/entities/typeorm/product';
 import { CloudinaryProductHelper } from 'src/helpers/cloudinary/CloudinaryProductHelper';
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
@@ -11,17 +11,17 @@ export class ProductService {
     constructor(
         @InjectRepository(Product)
         private productRepository: Repository<Product>,
-        
+
         private cloudinaryProductHelper: CloudinaryProductHelper,
-        private filter: Filter<Product>
-    ) {}
+        private filter: Filter
+    ) { }
 
     public async listProducts(filters?: Product): Promise<Product[]> {
         return await this.productRepository.findBy(this.filter.build(filters))
     }
 
     public async findProductById(productId: number): Promise<Product> {
-        return await this.productRepository.findOneBy({id: productId})
+        return await this.productRepository.findOneBy({ id: productId })
     }
 
     public async createProduct(product: Product): Promise<Product> {

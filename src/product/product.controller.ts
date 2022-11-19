@@ -1,5 +1,5 @@
+import { Product } from '@apicore/teiu/lib/typeorm';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { Product } from 'src/entities/typeorm/product';
 import { ProductService } from './product.service';
 
 @Controller('product')

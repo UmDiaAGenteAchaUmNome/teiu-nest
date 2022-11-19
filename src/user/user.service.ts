@@ -1,7 +1,6 @@
+import { Filter, User } from '@apicore/teiu/lib/typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Filter } from 'src/entities/typeorm/filter/filter.orm';
-import { User } from 'src/entities/typeorm/user';
 import { CryptHelper } from 'src/helpers/auth/crypt.helper';
 import { Repository } from 'typeorm';
 
@@ -12,16 +11,16 @@ export class UserService {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
 
-        private readonly filter: Filter<User>,
+        private readonly filter: Filter,
         private readonly crypt: CryptHelper
-    ) {}
+    ) { }
 
     public async listUsers(filters?: User): Promise<User[]> {
         return await this.userRepository.findBy(this.filter.build(filters))
     }
 
     public async getUserById(userId: number): Promise<User> {
-        return await this.userRepository.findOneBy({id: userId})
+        return await this.userRepository.findOneBy({ id: userId })
     }
 
     public async createUser(user: User): Promise<User> {

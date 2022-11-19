@@ -1,10 +1,7 @@
+import { Product, Slide, User } from "@apicore/teiu/lib/typeorm";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Banner } from "src/entities/typeorm/banner";
-import { Product } from "src/entities/typeorm/product";
-import { User } from "src/entities/typeorm/user";
-
 @Module({
     imports: [
         ConfigModule.forRoot(),
@@ -18,7 +15,7 @@ import { User } from "src/entities/typeorm/user";
             synchronize: true,
             entities: [
                 Product,
-                Banner,
+                Slide,
                 User
             ]
         }),
@@ -27,4 +24,4 @@ import { User } from "src/entities/typeorm/user";
         TypeOrmModule
     ]
 })
-export class OrmConfig {}
+export class OrmConfig { }
