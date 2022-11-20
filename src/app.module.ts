@@ -8,6 +8,7 @@ import { JwtStrategy } from './helpers/auth/jwt/jwt.strategy';
 import { ProductModule } from './product/product.module';
 import { SlideModule } from './slide/slide.module';
 import { UserModule } from './user/user.module';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { UserModule } from './user/user.module';
     SlideModule,
     UserModule,
     AuthModule,
-    CategoryModule
+    CategoryModule,
+    PostModule
   ],
   providers: [JwtStrategy]
 })

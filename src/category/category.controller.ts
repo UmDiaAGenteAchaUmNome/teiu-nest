@@ -15,8 +15,8 @@ export class CategoryController {
     }
 
     @Get(':id')
-    public async findCategoryById(@Param('id') id: number) {
-        return await this.categoryService.findById(id)
+    public async findCategoryById(@Param('id') categoryId: number) {
+        return await this.categoryService.findById(categoryId)
     }
 
     @Post()
@@ -25,13 +25,13 @@ export class CategoryController {
     }
 
     @Put(':id')
-    public async updateCategory(@Param('id') id: number, @Body() category: Category) {
+    public async updateCategory(@Param('id') categoryId: number, @Body() category: Category) {
         return await this.categoryService.create(category)
     }
 
     @Delete(':id')
-    public async deleteCategory(@Param('id') id) {
-        await this.categoryService.delete(id)
+    public async deleteCategory(@Param('id') categoryId) {
+        await this.categoryService.delete(categoryId)
     }
 
 }
