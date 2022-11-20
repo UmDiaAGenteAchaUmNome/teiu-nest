@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
 import { TipModule } from './tip/tip.module';
 import { GalleryItemModule } from './gallery-item/gallery-item.module';
+import { AccordionItemModule } from './accordion-item/accordion-item.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { GalleryItemModule } from './gallery-item/gallery-item.module';
     CategoryModule,
     PostModule,
     TipModule,
-    GalleryItemModule
+    GalleryItemModule,
+    AccordionItemModule
   ],
   providers: [JwtStrategy]
 })
