@@ -9,6 +9,7 @@ import { ProductModule } from './product/product.module';
 import { SlideModule } from './slide/slide.module';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
+import { TipModule } from './tip/tip.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { PostModule } from './post/post.module';
     UserModule,
     AuthModule,
     CategoryModule,
-    PostModule
+    PostModule,
+    TipModule
   ],
   providers: [JwtStrategy]
 })
