@@ -10,6 +10,7 @@ import { SlideModule } from './slide/slide.module';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
 import { TipModule } from './tip/tip.module';
+import { GalleryItemModule } from './gallery-item/gallery-item.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { TipModule } from './tip/tip.module';
     AuthModule,
     CategoryModule,
     PostModule,
-    TipModule
+    TipModule,
+    GalleryItemModule
   ],
   providers: [JwtStrategy]
 })
