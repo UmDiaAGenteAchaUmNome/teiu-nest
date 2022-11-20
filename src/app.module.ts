@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { CategoryModule } from './category/category.module';
 import { OrmConfig } from './config/db/orm.config';
 import { ExperimentalModule } from './experimental/experimental.module';
 import { JwtStrategy } from './helpers/auth/jwt/jwt.strategy';
@@ -16,7 +17,8 @@ import { UserModule } from './user/user.module';
     ExperimentalModule,
     SlideModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    CategoryModule
   ],
   providers: [JwtStrategy]
 })

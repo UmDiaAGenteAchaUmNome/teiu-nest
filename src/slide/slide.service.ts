@@ -14,26 +14,26 @@ export class SlideService {
         private readonly cloudinarySlideHelper: CloudinaryBannerHelper
     ) { }
 
-    public async listSlides(): Promise<Slide[]> {
+    public async listSlides() {
         return await this.slideRepository.find()
     }
 
-    public async findSlideById(slideId: number): Promise<Slide> {
+    public async findSlideById(slideId: number) {
         return await this.slideRepository.findOneBy({ id: slideId })
     }
 
-    public async createSlide(slide: Slide): Promise<Slide> {
+    public async createSlide(slide: Slide) {
         slide = await this.cloudinarySlideHelper.uploadBannerImages(slide)
         return await this.slideRepository.save(slide)
     }
 
-    public async updateSlide(slideId: number, slide: Slide): Promise<Slide> {
+    public async updateSlide(slideId: number, slide: Slide) {
         slide = await this.cloudinarySlideHelper.uploadBannerImages(slide)
         await this.slideRepository.update(slideId, slide)
         return await this.findSlideById(slideId)
     }
 
-    public async deleteSlide(slideId: number): Promise<void> {
+    public async deleteSlide(slideId: number) {
         await this.slideRepository.delete(slideId)
     }
 }

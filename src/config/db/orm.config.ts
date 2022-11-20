@@ -1,4 +1,4 @@
-import { Product, Slide, User } from "@apicore/teiu/lib/typeorm";
+import { AccordionItem, Category, GalleryItem, Post, Product, Slide, Tip, User } from "@apicore/teiu/lib/typeorm";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -16,7 +16,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             entities: [
                 Product,
                 Slide,
-                User
+                User,
+                Category,
+                Post,
+                Tip,
+                GalleryItem,
+                AccordionItem
             ]
         }),
     ],

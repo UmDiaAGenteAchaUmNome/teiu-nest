@@ -16,27 +16,33 @@ export class ProductService {
         private filter: Filter
     ) { }
 
-    public async listProducts(filters?: Product): Promise<Product[]> {
-        return await this.productRepository.findBy(this.filter.build(filters))
+    public async listProducts(filters?: Product) {
+        return await this.productRepository.find({
+            where: this.filter.build(filters),
+            relations: ["category"]
+        })
     }
 
-    public async findProductById(productId: number): Promise<Product> {
-        return await this.productRepository.findOneBy({ id: productId })
+    public async findProductById(productId: number) {
+        return await this.productRepository.findOne({
+            where: { id: productId },
+            relations: ["category"]
+        })
     }
 
-    public async createProduct(product: Product): Promise<Product> {
+    public async createProduct(product: Product) {
         product = await this.cloudinaryProductHelper.uploadProductImages(product)
         await this.productRepository.save(product)
         return product
     }
 
-    public async updateProduct(productId: number, product: Product): Promise<Product> {
+    public async updateProduct(productId: number, product: Product) {
         product = await this.cloudinaryProductHelper.uploadProductImages(product)
         await this.productRepository.update(productId, product)
         return await this.findProductById(productId)
     }
 
-    public async deleteProduct(productId: number): Promise<void> {
+    public async deleteProduct(productId: number) {
         await this.productRepository.delete(productId)
     }
 }
