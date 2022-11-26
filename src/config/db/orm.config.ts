@@ -1,4 +1,4 @@
-import { AccordionItem, Category, GalleryItem, Post, Product, Slide, Tip, User } from "@apicore/teiu/lib/typeorm";
+import { AccordionItem, Category, GalleryItem, Image, Post, Product, ProductDetail, ProductDetailItem, Slide, Tip, User } from "@apicore/teiu/lib/typeorm";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -21,7 +21,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
                 Post,
                 Tip,
                 GalleryItem,
-                AccordionItem
+                AccordionItem,
+                Image,
+                ProductDetail,
+                ProductDetailItem
             ]
         }),
     ],

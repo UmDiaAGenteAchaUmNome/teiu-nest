@@ -1,4 +1,4 @@
-import { CloudinaryImage } from '@apicore/teiu/lib/third-party';
+import { CreateImageRequestDTO } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { TransformationOptions, v2 as cloudinary } from 'cloudinary';
 import { CloudinaryCredentials } from 'src/config/third_party/images/cloudinary.config';
@@ -6,12 +6,12 @@ import { CloudinaryCredentials } from 'src/config/third_party/images/cloudinary.
 @Injectable()
 export class CloudinaryService {
 
-    public async uploadImage(image: CloudinaryImage, transformation?: TransformationOptions): Promise<string> {
+    public async uploadImage(image: CreateImageRequestDTO, path?: string, transformation?: TransformationOptions): Promise<string> {
         try {
             cloudinary.config(CloudinaryCredentials)
 
-            let uploadResponse = await cloudinary.uploader.upload(image.data, {
-                folder: image.path,
+            let uploadResponse = await cloudinary.uploader.upload(image.base64src, {
+                folder: path || 'teiu',
                 public_id: image.title,
                 overwrite: true,
                 unique_filename: true,

@@ -1,8 +1,9 @@
-import { Product } from '@apicore/teiu/lib/typeorm';
+import { SaveProductRequestDTO } from '@apicore/teiu/lib';
+import { Product, ProductDetail, ProductDetailItem } from '@apicore/teiu/lib/typeorm';
 import { Filter } from '@apicore/teiu/lib/typeorm/core/filter';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CloudinaryProductHelper } from 'src/helpers/cloudinary/CloudinaryProductHelper';
+import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -10,39 +11,105 @@ export class ProductService {
 
     constructor(
         @InjectRepository(Product)
-        private productRepository: Repository<Product>,
+        private readonly productRepository: Repository<Product>,
 
-        private cloudinaryProductHelper: CloudinaryProductHelper,
+        @InjectRepository(ProductDetail)
+        private readonly productDetailRepository: Repository<ProductDetail>,
+
+        @InjectRepository(ProductDetailItem)
+        private readonly productDetailItemRepository: Repository<ProductDetailItem>,
+
+        private cloudinaryService: CloudinaryService,
         private filter: Filter
     ) { }
 
     public async listProducts(filters?: Product) {
         return await this.productRepository.find({
             where: this.filter.build(filters),
-            relations: ["category"]
+            relations: ["category", "image", "details", "details.details"]
         })
     }
 
     public async findProductById(productId: number) {
         return await this.productRepository.findOne({
             where: { id: productId },
-            relations: ["category"]
+            relations: ["category", "image", "details", "details.details"]
         })
     }
 
-    public async createProduct(product: Product) {
-        product = await this.cloudinaryProductHelper.uploadProductImages(product)
-        await this.productRepository.save(product)
-        return product
-    }
+    public async saveProduct(product: SaveProductRequestDTO) {
+        product = await this.uploadCloudinaryImages(product)
 
-    public async updateProduct(productId: number, product: Product) {
-        product = await this.cloudinaryProductHelper.uploadProductImages(product)
-        await this.productRepository.update(productId, product)
-        return await this.findProductById(productId)
+        let details = product.details
+        delete product.details
+
+        await this.productRepository.save(product)
+
+        details.forEach(detail => detail.product = product)
+        await this.productDetailRepository.save(details)
+
+        return await this.findProductById(product.id)
     }
 
     public async deleteProduct(productId: number) {
-        await this.productRepository.delete(productId)
+        const product = await this.findProductById(productId)
+        const queryRunner = this.productRepository.manager.connection.createQueryRunner()
+
+        product.details.forEach(async detail => {
+            detail.details.forEach(async item => {
+                queryRunner.startTransaction()
+                await queryRunner.query("DELETE FROM product_detail_item WHERE id = ?", [item.id])
+                queryRunner.commitTransaction()
+            })
+
+            queryRunner.startTransaction()
+            await queryRunner.query("DELETE FROM product_detail WHERE id = ?", [detail.id])
+            queryRunner.commitTransaction()
+        })
+
+        queryRunner.startTransaction()
+        await queryRunner.query("DELETE FROM product WHERE id = ?", [product.id])
+        queryRunner.commitTransaction()
+    }
+
+    // private async deleteDetailsFromProduct(details: ProductDetail[]) {
+    //     details.map(async detail => {
+    //         await this.deleteItemsFromDetail(detail.details).then(async _ => {
+    //             detail.product = null
+    //             await this.productDetailRepository.manager.transaction(async entityManager => {
+    //                 let queryRunner = entityManager.connection.createQueryRunner()
+    //                 await queryRunner.connect()
+    //                 await queryRunner.startTransaction()
+    //                 await queryRunner.manager.save(detail)
+    //                 await queryRunner.commitTransaction()
+    //             })
+    //         })
+    //     })
+    // }
+
+    // private async deleteItemsFromDetail(items: ProductDetailItem[]) {
+    //     items.map(async item => {
+    //         item.productDetail = null
+    //         await this.productDetailItemRepository.manager.transaction(async entityManager => {
+    //             let queryRunner = entityManager.connection.createQueryRunner()
+    //             await queryRunner.connect()
+    //             await queryRunner.startTransaction()
+    //             await queryRunner.manager.save(item)
+    //             await queryRunner.commitTransaction()
+    //         })
+    //     })
+    // }
+
+    private async uploadCloudinaryImages(product: SaveProductRequestDTO) {
+        if (product.image.base64src) {
+            product.image.link = await this.cloudinaryService.uploadImage(
+                product.image,
+                `teiu/products/${product.image.title}`
+            )
+
+            return product
+        }
+
+        return product
     }
 }

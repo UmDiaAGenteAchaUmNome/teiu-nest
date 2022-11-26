@@ -1,3 +1,4 @@
+import { CreateImageRequestDTO, CreateProductRequestDTO } from "@apicore/teiu/lib"
 import { CloudinaryImage } from "@apicore/teiu/lib/third-party"
 import { Product } from "@apicore/teiu/lib/typeorm"
 import { Injectable } from "@nestjs/common"
@@ -15,29 +16,31 @@ export class CloudinaryProductHelper extends CloudinaryHelper {
         super()
     }
 
-    public async uploadProductImages(product: Product): Promise<Product> {
+    public async uploadProductImages(product: CreateProductRequestDTO): Promise<Product> {
         this.product = product
 
-        const productImage = this.buildCloudinaryImage(this.product.title, this.product.image)
-        const bannerImage = this.buildCloudinaryImage(this.product.title.concat('_banner'), this.product.bannerImage)
+        const productImage = this.buildCloudinaryImage(this.product.image)
+        const bannerImage = this.buildCloudinaryImage(this.product.bannerImage)
 
         if (product.image)
-            product.image = await this.cloudinaryService.uploadImage(productImage)
+            product.image.link = await this.cloudinaryService.uploadImage(productImage)
 
         if (product.bannerImage)
-            product.bannerImage = await this.cloudinaryService.uploadImage(bannerImage)
+            product.bannerImage.link = await this.cloudinaryService.uploadImage(bannerImage)
 
         return product
     }
 
-    private buildCloudinaryImage(title: string, image: string): CloudinaryImage {
-        const cloudinaryImage: CloudinaryImage = {
-            title: this.buildImageTitle(title),
-            data: image,
-            path: `teiu/produtos/${this.buildImageTitle(this.product.title)}_${this.buildImageTitle(this.product.subtitle)}`
-        }
+    private buildCloudinaryImage(image: CreateImageRequestDTO): CloudinaryImage {
+        if (image) {
+            const cloudinaryImage: CloudinaryImage = {
+                title: this.buildImageTitle(image.title),
+                data: image.base64src,
+                path: `teiu/produtos/${this.buildImageTitle(this.product.title)}_${this.buildImageTitle(this.product.subtitle)}`
+            }
 
-        return cloudinaryImage
+            return cloudinaryImage
+        }
     }
 
 }
