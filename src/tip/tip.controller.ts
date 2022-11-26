@@ -19,12 +19,12 @@ export class TipController {
 
     @Post()
     public async createTip(@Body() tip: Tip) {
-        return await this.tipService.create(tip)
+        return await this.tipService.save(tip)
     }
 
     @Put(':id')
     public async updateTip(@Param('id') tipId: number, @Body() tip: Tip) {
-        return await this.tipService.update(tipId, tip)
+        return await this.tipService.save(tip)
     }
 
     @Delete(':id')

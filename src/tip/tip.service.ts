@@ -1,35 +1,46 @@
-import { Filter, ServiceContract, Tip } from '@apicore/teiu/lib';
+import { Filter, SaveTipRequestDTO, Tip } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class TipService implements ServiceContract {
+export class TipService {
 
     constructor(
         @InjectRepository(Tip)
         private readonly repository: Repository<Tip>,
-        private readonly filter: Filter
+        private readonly filter: Filter,
+        private readonly cloudinaryService: CloudinaryService
     ) { }
 
     public async search(filters?: Tip) {
-        return await this.repository.find({ where: this.filter.build(filters) })
+        return await this.repository.find({ where: this.filter.build(filters), relations: ["image", "user"] })
     }
 
     public async findById(id: number) {
-        return await this.repository.findOne({ where: { id } })
+        return await this.repository.findOne({ where: { id }, relations: ["image", "user"] })
     }
 
-    public async create(tip: Tip) {
+    public async save(tip: SaveTipRequestDTO) {
+        await this.uploadCloudinaryImages(tip)
         return await this.repository.save(tip)
-    }
-
-    public async update(id: number, tip: Tip) {
-        await this.repository.update(id, tip)
-        return await this.findById(id)
     }
 
     public async delete(id: number) {
         await this.repository.delete(id)
+    }
+
+    private async uploadCloudinaryImages(tip: SaveTipRequestDTO) {
+        if (tip.image.base64src) {
+            tip.image.link = await this.cloudinaryService.uploadImage(
+                tip.image,
+                `teiu/tips/${tip.image.title}`
+            )
+
+            return tip
+        }
+
+        return tip
     }
 }

@@ -72,34 +72,6 @@ export class ProductService {
         queryRunner.commitTransaction()
     }
 
-    // private async deleteDetailsFromProduct(details: ProductDetail[]) {
-    //     details.map(async detail => {
-    //         await this.deleteItemsFromDetail(detail.details).then(async _ => {
-    //             detail.product = null
-    //             await this.productDetailRepository.manager.transaction(async entityManager => {
-    //                 let queryRunner = entityManager.connection.createQueryRunner()
-    //                 await queryRunner.connect()
-    //                 await queryRunner.startTransaction()
-    //                 await queryRunner.manager.save(detail)
-    //                 await queryRunner.commitTransaction()
-    //             })
-    //         })
-    //     })
-    // }
-
-    // private async deleteItemsFromDetail(items: ProductDetailItem[]) {
-    //     items.map(async item => {
-    //         item.productDetail = null
-    //         await this.productDetailItemRepository.manager.transaction(async entityManager => {
-    //             let queryRunner = entityManager.connection.createQueryRunner()
-    //             await queryRunner.connect()
-    //             await queryRunner.startTransaction()
-    //             await queryRunner.manager.save(item)
-    //             await queryRunner.commitTransaction()
-    //         })
-    //     })
-    // }
-
     private async uploadCloudinaryImages(product: SaveProductRequestDTO) {
         if (product.image.base64src) {
             product.image.link = await this.cloudinaryService.uploadImage(
