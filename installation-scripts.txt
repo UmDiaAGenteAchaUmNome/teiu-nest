@@ -1,11 +1,11 @@
+npm install --save mysql
 npm install --save @nestjs/config
 npm install --save @nestjs/typeorm typeorm@0.2 mysql2
 npm install --save @nestjs/passport passport passport-local
+npm install --save @nestjs/jwt passport-jwt
+npm install --save @nestjs/typeorm typeorm
+npm install --save @nestjs/axios
+npm install --save @nestjs/jwt passport-jwt
+npm install --save-dev @types/passport-jwt
+npm install --save-dev @types/passport-jwt
 npm install --save-dev @types/passport-local
-npm install --save @nestjs/jwt passport-jwt
-npm install --save-dev @types/passport-jwt
-npm i --save @nestjs/typeorm typeorm
-npm i --save @nestjs/axios
-npm install --save @nestjs/jwt passport-jwt
-npm install --save-dev @types/passport-jwt
-npm install mysql --save

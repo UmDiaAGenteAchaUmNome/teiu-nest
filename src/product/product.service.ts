@@ -1,13 +1,15 @@
 import { SaveProductRequestDTO } from '@apicore/teiu/lib';
 import { Product, ProductDetail, ProductDetailItem } from '@apicore/teiu/lib/typeorm';
 import { Filter } from '@apicore/teiu/lib/typeorm/core/filter';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
+
+    private readonly logger = new Logger(ProductService.name)
 
     constructor(
         @InjectRepository(Product)
@@ -26,19 +28,19 @@ export class ProductService {
     public async listProducts(filters?: Product) {
         return await this.productRepository.find({
             where: this.filter.build(filters),
-            relations: ["category", "image", "details", "details.details"]
+            relations: ["category", "images", "details", "details.details"]
         })
     }
 
     public async findProductById(productId: number) {
         return await this.productRepository.findOne({
             where: { id: productId },
-            relations: ["category", "image", "details", "details.details"]
+            relations: ["category", "images", "details", "details.details"]
         })
     }
 
     public async saveProduct(product: SaveProductRequestDTO) {
-        product = await this.uploadCloudinaryImages(product)
+        product.images = await this.uploadCloudinaryImages(product)
 
         let details = product.details
         delete product.details
@@ -73,15 +75,11 @@ export class ProductService {
     }
 
     private async uploadCloudinaryImages(product: SaveProductRequestDTO) {
-        if (product.image.base64src) {
-            product.image.link = await this.cloudinaryService.uploadImage(
-                product.image,
-                `teiu/products/${product.image.title}`
-            )
-
-            return product
-        }
-
-        return product
+        return await Promise.all(
+            product.images.map(async (image) => {
+                if (image.base64src) return await this.cloudinaryService.uploadImageDto(image)
+                else return image
+            })
+        )
     }
 }
