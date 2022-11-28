@@ -1,6 +1,7 @@
 import { SaveProductRequestDTO } from '@apicore/teiu/lib';
 import { Product } from '@apicore/teiu/lib/typeorm';
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { JwtGuard } from 'src/guards/jwt.guard';
 import { ProductService } from './product.service';
 
 @Controller('product')
@@ -21,19 +22,19 @@ export class ProductController {
     }
 
     @Post()
-    // @UseGuards(JwtGuard)
+    @UseGuards(JwtGuard)
     public async createProduct(@Body() product: SaveProductRequestDTO): Promise<Product> {
         return await this.productService.saveProduct(product)
     }
 
     @Put()
-    // @UseGuards(JwtGuard)
+    @UseGuards(JwtGuard)
     public async updateProduct(@Body() product: SaveProductRequestDTO): Promise<Product> {
         return await this.productService.saveProduct(product)
     }
 
     @Delete(':id')
-    // @UseGuards(JwtGuard)
+    @UseGuards(JwtGuard)
     public async deleteProduct(@Param('id') idProduto: number): Promise<void> {
         await this.productService.deleteProduct(idProduto)
     }

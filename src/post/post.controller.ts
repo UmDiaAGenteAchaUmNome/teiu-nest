@@ -1,5 +1,6 @@
 import { Post } from '@apicore/teiu/lib';
-import { Body, Controller, Delete, Get, Param, Post as HttpPost, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post as HttpPost, Put, Query, UseGuards } from '@nestjs/common';
+import { JwtGuard } from 'src/guards/jwt.guard';
 import { PostService } from './post.service';
 
 @Controller('post')
@@ -18,16 +19,19 @@ export class PostController {
     }
 
     @HttpPost()
+    @UseGuards(JwtGuard)
     public async createPost(@Body() post: Post) {
         return await this.postService.create(post)
     }
 
     @Put(':id')
+    @UseGuards(JwtGuard)
     public async updatePost(@Param('id') postId: number, @Body() post: Post) {
         return await this.postService.update(postId, post)
     }
 
     @Delete(':id')
+    @UseGuards(JwtGuard)
     public async deletePost(@Param('id') postId: number) {
         await this.postService.delete(postId)
     }

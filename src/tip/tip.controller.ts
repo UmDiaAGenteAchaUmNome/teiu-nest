@@ -1,5 +1,6 @@
 import { Tip } from '@apicore/teiu/lib';
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { JwtGuard } from 'src/guards/jwt.guard';
 import { TipService } from './tip.service';
 
 @Controller('tip')
@@ -18,16 +19,19 @@ export class TipController {
     }
 
     @Post()
+    @UseGuards(JwtGuard)
     public async createTip(@Body() tip: Tip) {
         return await this.tipService.save(tip)
     }
 
     @Put(':id')
+    @UseGuards(JwtGuard)
     public async updateTip(@Param('id') tipId: number, @Body() tip: Tip) {
         return await this.tipService.save(tip)
     }
 
     @Delete(':id')
+    @UseGuards(JwtGuard)
     public async deleteTip(@Param('id') tipId: number) {
         return await this.tipService.delete(tipId)
     }

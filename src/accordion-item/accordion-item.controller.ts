@@ -1,5 +1,6 @@
 import { AccordionItem } from '@apicore/teiu/lib';
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { JwtGuard } from 'src/guards/jwt.guard';
 import { AccordionItemService } from './accordion-item.service';
 
 @Controller('accordion-item')
@@ -20,16 +21,19 @@ export class AccordionItemController {
     }
 
     @Post()
+    @UseGuards(JwtGuard)
     public async createAccordionItem(@Body() accordionItem: AccordionItem) {
         return await this.accordionItemService.create(accordionItem)
     }
 
     @Put(':id')
+    @UseGuards(JwtGuard)
     public async updateAccordionItem(@Param('id') accordionItemId: number, @Body() accordionItem: AccordionItem) {
         return await this.accordionItemService.update(accordionItemId, accordionItem)
     }
 
     @Delete(':id')
+    @UseGuards(JwtGuard)
     public async deleteAccordionItem(@Param('id') accordionItemId: number) {
         await this.accordionItemService.delete(accordionItemId)
     }
