@@ -17,7 +17,7 @@ export class SaveSlideValidation {
         private readonly imageRepository: Repository<Image>
     ) { }
 
-    public async validate(slide: SlideDTO): Promise<void> {
+    public async validate(slide: Slide | SlideDTO): Promise<void> {
         this.slide = slide
 
         await this.validateTitle()

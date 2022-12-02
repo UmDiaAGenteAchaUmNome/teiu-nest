@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/entities/category';
 import { Filter } from 'src/entities/core/filter';
+import { SaveCategoryValidation } from 'src/validations/save-category.validation';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -11,7 +12,8 @@ export class CategoryService implements ServiceContract {
     constructor(
         @InjectRepository(Category)
         private readonly repository: Repository<Category>,
-        private readonly filter: Filter
+        private readonly filter: Filter,
+        private readonly saveCategoryValidator: SaveCategoryValidation
     ) { }
 
     public async search(filters?: Category) {
@@ -29,6 +31,7 @@ export class CategoryService implements ServiceContract {
     }
 
     public async create(category: Category) {
+        await this.saveCategoryValidator.validate(category)
         return await this.repository.save(category)
     }
 
