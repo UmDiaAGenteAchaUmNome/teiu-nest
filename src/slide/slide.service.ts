@@ -53,7 +53,7 @@ export class SlideService {
         }
 
         if (slide.bgImage.base64src) {
-            slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage)
+            slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `teiu/slides/${slide.title}`)
             this.imageRepository.save(slide.bgImage)
         }
 

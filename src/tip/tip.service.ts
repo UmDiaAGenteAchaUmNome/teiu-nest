@@ -35,7 +35,7 @@ export class TipService {
 
     private async uploadCloudinaryImages(tip: TipDTO) {
         if (tip.image.base64src) {
-            tip.image.link = await this.cloudinaryService.uploadImage(
+            tip.image = await this.cloudinaryService.uploadImageDto(
                 tip.image,
                 `teiu/tips/${tip.image.title}`
             )

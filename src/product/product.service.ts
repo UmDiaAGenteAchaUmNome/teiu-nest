@@ -79,7 +79,7 @@ export class ProductService {
     private async uploadCloudinaryImages(product: ProductDTO) {
         return await Promise.all(
             product.images.map(async (image) => {
-                if (image.base64src) return await this.cloudinaryService.uploadImageDto(image)
+                if (image.base64src) return await this.cloudinaryService.uploadImageDto(image, `teiu/products/${product.title}`)
                 else return image
             })
         )
