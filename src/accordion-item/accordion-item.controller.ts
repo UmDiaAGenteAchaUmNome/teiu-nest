@@ -1,5 +1,5 @@
-import { AccordionItem } from '@apicore/teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { AccordionItem } from 'src/entities/accordion-item';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { AccordionItemService } from './accordion-item.service';
 

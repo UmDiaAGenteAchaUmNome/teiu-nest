@@ -1,5 +1,4 @@
-import { LoginResponseDTO } from '@apicore/teiu/lib';
-import { User } from '@apicore/teiu/lib/typeorm';
+import { LoginResponseDTO, UserDTO } from '@apicore/teiu/lib';
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
@@ -11,7 +10,7 @@ export class AuthController {
     ) { }
 
     @Post('login')
-    public async login(@Body() user: User): Promise<LoginResponseDTO> {
+    public async login(@Body() user: UserDTO): Promise<LoginResponseDTO> {
         return await this.authService.login(user)
     }
 }

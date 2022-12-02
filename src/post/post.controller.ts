@@ -1,5 +1,5 @@
-import { Post } from '@apicore/teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post as HttpPost, Put, Query, UseGuards } from '@nestjs/common';
+import { Post } from 'src/entities/post';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { PostService } from './post.service';
 

@@ -1,5 +1,6 @@
-import { Slide } from '@apicore/teiu/lib/typeorm';
+import { SlideDTO } from '@apicore/teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Slide } from 'src/entities/slide';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { SlideService } from './slide.service';
 
@@ -22,14 +23,14 @@ export class SlideController {
 
     @Post()
     @UseGuards(JwtGuard)
-    public async createSlide(@Body() slide: Slide): Promise<Slide> {
-        return await this.slideService.createSlide(slide)
+    public async createSlide(@Body() slide: SlideDTO): Promise<Slide> {
+        return await this.slideService.saveSlide(slide)
     }
 
     @Put(':id')
     @UseGuards(JwtGuard)
-    public async updateSlide(@Param('id') slideId: number, @Body() slide: Slide): Promise<Slide> {
-        return await this.slideService.updateSlide(slideId, slide)
+    public async updateSlide(@Param('id') slideId: number, @Body() slide: SlideDTO): Promise<Slide> {
+        return await this.slideService.saveSlide(slide)
     }
 
     @Delete(':id')

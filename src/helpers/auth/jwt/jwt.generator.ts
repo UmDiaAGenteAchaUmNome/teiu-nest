@@ -1,4 +1,4 @@
-import { User } from "@apicore/teiu/lib/typeorm"
+import { UserDTO } from "@apicore/teiu/lib"
 import { Injectable } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 
@@ -9,7 +9,7 @@ export class JwtGenerator {
         private jwtService: JwtService,
     ) { }
 
-    public generate(user: User): string {
+    public generate(user: UserDTO): string {
         let token: string = this.jwtService.sign({ user: user }, {
             expiresIn: process.env.JWT_EXPIRATION,
             secret: process.env.JWT_SECRET

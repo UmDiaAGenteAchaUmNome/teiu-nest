@@ -1,6 +1,8 @@
-import { AccordionItem, Filter, ServiceContract } from '@apicore/teiu/lib';
+import { ServiceContract } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AccordionItem } from 'src/entities/accordion-item';
+import { Filter } from 'src/entities/core/filter';
 import { Repository } from 'typeorm';
 
 @Injectable()

@@ -1,5 +1,5 @@
-import { Category } from '@apicore/teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Category } from 'src/entities/category';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { CategoryService } from './category.service';
 

@@ -1,5 +1,5 @@
-import { GalleryItem } from '@apicore/teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { GalleryItem } from 'src/entities/gallery-item';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { GalleryItemService } from './gallery-item.service';
 

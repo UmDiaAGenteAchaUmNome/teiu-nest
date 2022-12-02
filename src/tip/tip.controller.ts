@@ -1,5 +1,5 @@
-import { Tip } from '@apicore/teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Tip } from 'src/entities/tip';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { TipService } from './tip.service';
 

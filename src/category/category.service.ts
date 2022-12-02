@@ -1,6 +1,8 @@
-import { Category, Filter, ServiceContract } from '@apicore/teiu/lib';
+import { ServiceContract } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Category } from 'src/entities/category';
+import { Filter } from 'src/entities/core/filter';
 import { Repository } from 'typeorm';
 
 @Injectable()
