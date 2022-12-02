@@ -1,6 +1,7 @@
 import { SlideDTO } from '@apicore/teiu/lib';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Filter } from 'src/entities/core/filter';
 import { Image } from "src/entities/image";
 import { Slide } from 'src/entities/slide';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
@@ -19,11 +20,15 @@ export class SlideService {
         private readonly imageRepository: Repository<Image>,
 
         private readonly cloudinaryService: CloudinaryService,
-        private readonly saveSlideValidation: SaveSlideValidation
+        private readonly saveSlideValidation: SaveSlideValidation,
+        private readonly filter: Filter
     ) { }
 
-    public async listSlides() {
-        return await this.slideRepository.find({ relations: ['image', 'bgImage'] })
+    public async listSlides(filters?: Slide) {
+        return await this.slideRepository.find({
+            relations: ['image', 'bgImage'],
+            where: this.filter.build(filters)
+        })
     }
 
     public async findSlideById(slideId: number) {

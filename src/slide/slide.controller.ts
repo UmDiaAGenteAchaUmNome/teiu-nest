@@ -1,5 +1,5 @@
 import { SlideDTO } from '@apicore/teiu/lib';
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { Slide } from 'src/entities/slide';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { SlideService } from './slide.service';
@@ -12,8 +12,8 @@ export class SlideController {
     ) { }
 
     @Get()
-    public async listSlides(): Promise<Slide[]> {
-        return await this.slideService.listSlides()
+    public async listSlides(@Query() filters?: SlideDTO): Promise<Slide[]> {
+        return await this.slideService.listSlides(filters)
     }
 
     @Get(':id')
