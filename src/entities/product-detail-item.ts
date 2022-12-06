@@ -11,7 +11,7 @@ export class ProductDetailItem extends Timestamps {
     @Column()
     title?: string
 
-    @Column()
+    @Column({ nullable: true })
     description?: string
 
     @ManyToOne(() => ProductDetail, (detail) => detail.details)

@@ -13,7 +13,7 @@ export class TipService {
         @InjectRepository(Tip)
         private readonly repository: Repository<Tip>,
         private readonly filter: Filter,
-        private readonly cloudinaryService: CloudinaryService
+        private readonly cloudinaryService: CloudinaryService,
     ) { }
 
     public async search(filters?: Tip) {

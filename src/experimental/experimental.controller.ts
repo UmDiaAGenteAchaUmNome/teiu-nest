@@ -1,6 +1,6 @@
 import { CloudinaryImage } from '@apicore/teiu/lib/third-party';
 import { HttpService } from '@nestjs/axios';
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Param, Post } from '@nestjs/common';
 import { CryptHelper } from 'src/helpers/auth/crypt.helper';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 
@@ -34,5 +34,12 @@ export class ExperimentalController {
     @Get("hash/:data")
     public async generateHash(@Param('data') data: string): Promise<string> {
         return await this.crypt.generateCryptedHash(data)
+    }
+
+    @Get("logged-user")
+    public async getLoggedUser(@Headers() headers) {
+        const token = headers.authorization.split(" ")[1]
+
+        return JSON.parse(Buffer.from((token.split('.')[1]), 'base64').toString()).user
     }
 }

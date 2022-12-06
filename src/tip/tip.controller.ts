@@ -1,12 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Headers, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { Tip } from 'src/entities/tip';
 import { JwtGuard } from 'src/guards/jwt.guard';
+import { getLoggedUser } from 'src/helpers/auth/jwt/logged-user.helper';
 import { TipService } from './tip.service';
 
 @Controller('tip')
 export class TipController {
 
-    constructor(private readonly tipService: TipService) { }
+    constructor(
+        private readonly tipService: TipService
+    ) { }
 
     @Get()
     public async searchTips(@Query() filters?: Tip) {
@@ -20,7 +23,8 @@ export class TipController {
 
     @Post()
     @UseGuards(JwtGuard)
-    public async createTip(@Body() tip: Tip) {
+    public async createTip(@Body() tip: Tip, @Headers() headers) {
+        tip.user = getLoggedUser(headers)
         return await this.tipService.save(tip)
     }
 
