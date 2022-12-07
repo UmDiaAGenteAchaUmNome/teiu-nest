@@ -28,9 +28,9 @@ export class ProductController {
         return await this.productService.saveProduct(product)
     }
 
-    @Put()
+    @Put(':id')
     @UseGuards(JwtGuard)
-    public async updateProduct(@Body() product: ProductDTO): Promise<Product> {
+    public async updateProduct(@Param('id') productId, @Body() product: ProductDTO): Promise<Product> {
         return await this.productService.saveProduct(product)
     }
 

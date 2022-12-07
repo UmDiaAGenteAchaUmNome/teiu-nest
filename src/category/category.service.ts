@@ -19,14 +19,14 @@ export class CategoryService implements ServiceContract {
     public async search(filters?: Category) {
         return await this.repository.find({
             where: this.filter.build(filters),
-            relations: ["products"]
+            relations: ["products", "products.images"]
         })
     }
 
     public async findById(id: number) {
         return await this.repository.findOne({
             where: { id },
-            relations: ["products"]
+            relations: ["products", "products.images"]
         })
     }
 
