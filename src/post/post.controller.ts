@@ -21,7 +21,7 @@ export class PostController {
     @HttpPost()
     @UseGuards(JwtGuard)
     public async createPost(@Body() post: Post) {
-        return await this.postService.create(post)
+        return await this.postService.save(post)
     }
 
     @Put(':id')

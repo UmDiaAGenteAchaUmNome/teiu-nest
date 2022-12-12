@@ -21,13 +21,13 @@ export class GalleryItemController {
     @Post()
     @UseGuards(JwtGuard)
     public async createGalleryItem(@Body() galleryItem: GalleryItem) {
-        return await this.galleryItemService.create(galleryItem)
+        return await this.galleryItemService.save(galleryItem)
     }
 
     @Put(':id')
     @UseGuards(JwtGuard)
     public async updateGalleryItem(@Param('id') galleryItemId: number, @Body() galleryItem) {
-        return await this.galleryItemService.update(galleryItemId, galleryItem)
+        return await this.galleryItemService.save(galleryItem)
     }
 
     @Delete(':id')

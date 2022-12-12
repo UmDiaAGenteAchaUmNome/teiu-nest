@@ -1,4 +1,3 @@
-import { ServiceContract } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/entities/category';
@@ -7,7 +6,7 @@ import { SaveCategoryValidation } from 'src/validations/save-category.validation
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class CategoryService implements ServiceContract {
+export class CategoryService {
 
     constructor(
         @InjectRepository(Category)
@@ -30,7 +29,7 @@ export class CategoryService implements ServiceContract {
         })
     }
 
-    public async create(category: Category) {
+    public async save(category: Category) {
         await this.saveCategoryValidator.validate(category)
         return await this.repository.save(category)
     }

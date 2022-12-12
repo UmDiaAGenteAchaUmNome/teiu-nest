@@ -23,13 +23,13 @@ export class CategoryController {
     @Post()
     @UseGuards(JwtGuard)
     public async createCategory(@Body() category: Category) {
-        return await this.categoryService.create(category)
+        return await this.categoryService.save(category)
     }
 
     @Put(':id')
     @UseGuards(JwtGuard)
     public async updateCategory(@Param('id') categoryId: number, @Body() category: Category) {
-        return await this.categoryService.create(category)
+        return await this.categoryService.save(category)
     }
 
     @Delete(':id')

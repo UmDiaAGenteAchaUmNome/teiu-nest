@@ -23,7 +23,7 @@ export class AccordionItemController {
     @Post()
     @UseGuards(JwtGuard)
     public async createAccordionItem(@Body() accordionItem: AccordionItem) {
-        return await this.accordionItemService.create(accordionItem)
+        return await this.accordionItemService.save(accordionItem)
     }
 
     @Put(':id')

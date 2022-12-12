@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "./core/timestamps";
 import { Image } from "./image";
 
@@ -7,7 +7,8 @@ export class GalleryItem extends Timestamps {
     @PrimaryGeneratedColumn()
     id?: number
 
-    @OneToOne(() => Image)
+    @OneToOne(() => Image, { cascade: true })
+    @JoinColumn()
     image?: Image
 
     @Column()
