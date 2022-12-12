@@ -5,8 +5,8 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use(json({limit: '50mb'}))
-  app.use(urlencoded({extended: true, limit: process.env.REQUEST_SIZE_LIMIT}))
+  app.use(json({ limit: '50mb' }))
+  app.use(urlencoded({ extended: true, limit: process.env.REQUEST_SIZE_LIMIT }))
   app.enableCors()
 
   await app.listen(process.env.PORT);

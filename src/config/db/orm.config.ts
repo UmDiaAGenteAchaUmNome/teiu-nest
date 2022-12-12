@@ -1,7 +1,17 @@
-import { AccordionItem, Category, GalleryItem, Image, Post, Product, ProductDetail, ProductDetailItem, Slide, Tip, User } from "@apicore/teiu/lib/typeorm";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AccordionItem } from "src/entities/accordion-item";
+import { Category } from "src/entities/category";
+import { GalleryItem } from "src/entities/gallery-item";
+import { Image } from "src/entities/image";
+import { Post } from "src/entities/post";
+import { Product } from "src/entities/product";
+import { ProductDetail } from "src/entities/product-detail";
+import { ProductDetailItem } from "src/entities/product-detail-item";
+import { Slide } from "src/entities/slide";
+import { Tip } from "src/entities/tip";
+import { User } from "src/entities/user";
 @Module({
     imports: [
         ConfigModule.forRoot(),

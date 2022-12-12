@@ -1,32 +1,36 @@
-import { Category, Filter, ServiceContract } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Category } from 'src/entities/category';
+import { Filter } from 'src/entities/core/filter';
+import { SaveCategoryValidation } from 'src/validations/save-category.validation';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class CategoryService implements ServiceContract {
+export class CategoryService {
 
     constructor(
         @InjectRepository(Category)
         private readonly repository: Repository<Category>,
-        private readonly filter: Filter
+        private readonly filter: Filter,
+        private readonly saveCategoryValidator: SaveCategoryValidation
     ) { }
 
     public async search(filters?: Category) {
         return await this.repository.find({
             where: this.filter.build(filters),
-            relations: ["products"]
+            relations: ["products", "products.images"]
         })
     }
 
     public async findById(id: number) {
         return await this.repository.findOne({
             where: { id },
-            relations: ["products"]
+            relations: ["products", "products.images"]
         })
     }
 
-    public async create(category: Category) {
+    public async save(category: Category) {
+        await this.saveCategoryValidator.validate(category)
         return await this.repository.save(category)
     }
 

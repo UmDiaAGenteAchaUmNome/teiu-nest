@@ -1,10 +1,11 @@
-import { AccordionItem, Filter, ServiceContract } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AccordionItem } from 'src/entities/accordion-item';
+import { Filter } from 'src/entities/core/filter';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class AccordionItemService implements ServiceContract {
+export class AccordionItemService {
 
     constructor(
         @InjectRepository(AccordionItem)
@@ -20,7 +21,7 @@ export class AccordionItemService implements ServiceContract {
         return await this.repository.findOne({ where: { id } })
     }
 
-    public async create(accordionItem: AccordionItem) {
+    public async save(accordionItem: AccordionItem) {
         return await this.repository.save(accordionItem)
     }
 

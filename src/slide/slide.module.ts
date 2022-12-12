@@ -1,15 +1,17 @@
-import { Slide } from '@apicore/teiu/lib/typeorm';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CloudinaryBannerHelper } from 'src/helpers/cloudinary/CloudinarySlideHelper';
+import { Filter } from 'src/entities/core/filter';
+import { Image } from 'src/entities/image';
+import { Slide } from 'src/entities/slide';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
+import { SaveSlideValidation } from 'src/validations/save-slide.validation';
 import { SlideController } from './slide.controller';
 import { SlideService } from './slide.service';
 
 @Module({
   controllers: [SlideController],
-  providers: [SlideService, CloudinaryService, CloudinaryBannerHelper],
-  imports: [TypeOrmModule.forFeature([Slide])],
+  providers: [SlideService, CloudinaryService, SaveSlideValidation, Filter],
+  imports: [TypeOrmModule.forFeature([Slide, Image])],
   exports: [TypeOrmModule]
 })
 export class SlideModule { }

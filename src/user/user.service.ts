@@ -1,6 +1,7 @@
-import { Filter, User } from '@apicore/teiu/lib/typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Filter } from 'src/entities/core/filter';
+import { User } from 'src/entities/user';
 import { CryptHelper } from 'src/helpers/auth/crypt.helper';
 import { Repository } from 'typeorm';
 

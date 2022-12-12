@@ -1,10 +1,11 @@
-import { Filter, Post, ServiceContract } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Filter } from 'src/entities/core/filter';
+import { Post } from 'src/entities/post';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class PostService implements ServiceContract {
+export class PostService {
 
     constructor(
         @InjectRepository(Post)
@@ -20,7 +21,7 @@ export class PostService implements ServiceContract {
         return await this.repository.findOne({ where: { id } })
     }
 
-    public async create(post: Post) {
+    public async save(post: Post) {
         return await this.repository.save(post)
     }
 

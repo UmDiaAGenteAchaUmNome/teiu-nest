@@ -1,39 +1,62 @@
-import { Slide } from '@apicore/teiu/lib/typeorm';
-import { Injectable } from '@nestjs/common';
+import { SlideDTO } from '@apicore/teiu/lib';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CloudinaryBannerHelper } from 'src/helpers/cloudinary/CloudinarySlideHelper';
+import { Filter } from 'src/entities/core/filter';
+import { Image } from "src/entities/image";
+import { Slide } from 'src/entities/slide';
+import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
+import { SaveSlideValidation } from 'src/validations/save-slide.validation';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class SlideService {
 
+    private readonly logger = new Logger(SlideService.name)
+
     constructor(
         @InjectRepository(Slide)
         private readonly slideRepository: Repository<Slide>,
+        @InjectRepository(Image)
+        private readonly imageRepository: Repository<Image>,
 
-        private readonly cloudinarySlideHelper: CloudinaryBannerHelper
+        private readonly cloudinaryService: CloudinaryService,
+        private readonly saveSlideValidation: SaveSlideValidation,
+        private readonly filter: Filter
     ) { }
 
-    public async listSlides() {
-        return await this.slideRepository.find()
+    public async listSlides(filters?: Slide) {
+        return await this.slideRepository.find({
+            relations: ['image', 'bgImage'],
+            where: this.filter.build(filters)
+        })
     }
 
     public async findSlideById(slideId: number) {
-        return await this.slideRepository.findOneBy({ id: slideId })
+        return await this.slideRepository.findOne({ where: { id: slideId }, relations: ['image', 'bgImage'] })
     }
 
-    public async createSlide(slide: Slide) {
-        slide = await this.cloudinarySlideHelper.uploadBannerImages(slide)
+    public async saveSlide(slide: SlideDTO) {
+        await this.saveSlideValidation.validate(slide)
+
+        slide = await this.updateCloudinaryImages(slide)
         return await this.slideRepository.save(slide)
-    }
-
-    public async updateSlide(slideId: number, slide: Slide) {
-        slide = await this.cloudinarySlideHelper.uploadBannerImages(slide)
-        await this.slideRepository.update(slideId, slide)
-        return await this.findSlideById(slideId)
     }
 
     public async deleteSlide(slideId: number) {
         await this.slideRepository.delete(slideId)
+    }
+
+    private async updateCloudinaryImages(slide: SlideDTO) {
+        if (slide.image.base64src) {
+            slide.image = await this.cloudinaryService.uploadImageDto(slide.image)
+            this.imageRepository.save(slide.image)
+        }
+
+        if (slide.bgImage.base64src) {
+            slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `teiu/slides/${slide.title}`)
+            this.imageRepository.save(slide.bgImage)
+        }
+
+        return slide
     }
 }

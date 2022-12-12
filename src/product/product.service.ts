@@ -1,8 +1,10 @@
-import { SaveProductRequestDTO } from '@apicore/teiu/lib';
-import { Product, ProductDetail, ProductDetailItem } from '@apicore/teiu/lib/typeorm';
-import { Filter } from '@apicore/teiu/lib/typeorm/core/filter';
+import { ProductDTO } from '@apicore/teiu/lib';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Filter } from 'src/entities/core/filter';
+import { Product } from 'src/entities/product';
+import { ProductDetail } from 'src/entities/product-detail';
+import { ProductDetailItem } from 'src/entities/product-detail-item';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
 
@@ -39,16 +41,16 @@ export class ProductService {
         })
     }
 
-    public async saveProduct(product: SaveProductRequestDTO) {
+    public async saveProduct(product: ProductDTO) {
         product.images = await this.uploadCloudinaryImages(product)
 
         let details = product.details
         delete product.details
 
-        await this.productRepository.save(product)
+        await this.productRepository.save(product as Product)
 
         details.forEach(detail => detail.product = product)
-        await this.productDetailRepository.save(details)
+        await this.productDetailRepository.save(details as ProductDetail)
 
         return await this.findProductById(product.id)
     }
@@ -74,10 +76,10 @@ export class ProductService {
         queryRunner.commitTransaction()
     }
 
-    private async uploadCloudinaryImages(product: SaveProductRequestDTO) {
+    private async uploadCloudinaryImages(product: ProductDTO) {
         return await Promise.all(
             product.images.map(async (image) => {
-                if (image.base64src) return await this.cloudinaryService.uploadImageDto(image)
+                if (image.base64src) return await this.cloudinaryService.uploadImageDto(image, `teiu/products/${product.title}`)
                 else return image
             })
         )

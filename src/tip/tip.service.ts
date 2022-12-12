@@ -1,6 +1,8 @@
-import { Filter, SaveTipRequestDTO, Tip } from '@apicore/teiu/lib';
+import { TipDTO } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Filter } from 'src/entities/core/filter';
+import { Tip } from 'src/entities/tip';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
 
@@ -11,7 +13,7 @@ export class TipService {
         @InjectRepository(Tip)
         private readonly repository: Repository<Tip>,
         private readonly filter: Filter,
-        private readonly cloudinaryService: CloudinaryService
+        private readonly cloudinaryService: CloudinaryService,
     ) { }
 
     public async search(filters?: Tip) {
@@ -22,7 +24,7 @@ export class TipService {
         return await this.repository.findOne({ where: { id }, relations: ["image", "user"] })
     }
 
-    public async save(tip: SaveTipRequestDTO) {
+    public async save(tip: TipDTO) {
         await this.uploadCloudinaryImages(tip)
         return await this.repository.save(tip)
     }
@@ -31,9 +33,9 @@ export class TipService {
         await this.repository.delete(id)
     }
 
-    private async uploadCloudinaryImages(tip: SaveTipRequestDTO) {
+    private async uploadCloudinaryImages(tip: TipDTO) {
         if (tip.image.base64src) {
-            tip.image.link = await this.cloudinaryService.uploadImage(
+            tip.image = await this.cloudinaryService.uploadImageDto(
                 tip.image,
                 `teiu/tips/${tip.image.title}`
             )
