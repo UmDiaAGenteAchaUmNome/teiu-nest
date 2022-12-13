@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist';
 import { AccordionItem } from 'src/entities/accordion-item';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { AccordionItemService } from './accordion-item.service';
 
+@ApiTags('Accordion Item')
 @Controller('accordion-item')
 export class AccordionItemController {
 

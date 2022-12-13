@@ -1,10 +1,12 @@
 
 import { ProductDTO } from '@apicore/teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { Product } from 'src/entities/product';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { ProductService } from './product.service';
 
+@ApiTags('Product')
 @Controller('product')
 export class ProductController {
 

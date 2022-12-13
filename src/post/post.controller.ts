@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post as HttpPost, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { Post } from 'src/entities/post';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { PostService } from './post.service';
 
+@ApiTags('Post')
 @Controller('post')
 export class PostController {
 
