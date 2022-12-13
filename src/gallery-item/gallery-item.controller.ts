@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { GalleryItem } from 'src/entities/gallery-item';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { GalleryItemService } from './gallery-item.service';
 
+@ApiTags('Gallery Item')
 @Controller('gallery-item')
 export class GalleryItemController {
 

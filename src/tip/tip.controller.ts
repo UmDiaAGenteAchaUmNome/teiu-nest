@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Headers, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { Tip } from 'src/entities/tip';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { getLoggedUser } from 'src/helpers/auth/jwt/logged-user.helper';
 import { TipService } from './tip.service';
 
+@ApiTags('Tip')
 @Controller('tip')
 export class TipController {
 

@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { Category } from 'src/entities/category';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { CategoryService } from './category.service';
 
+@ApiTags('Category')
 @Controller('category')
 export class CategoryController {
 

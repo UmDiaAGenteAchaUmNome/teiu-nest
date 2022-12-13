@@ -1,9 +1,11 @@
 import { CloudinaryImage } from '@apicore/teiu/lib/third-party';
 import { HttpService } from '@nestjs/axios';
 import { Body, Controller, Get, Headers, Param, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { CryptHelper } from 'src/helpers/auth/crypt.helper';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 
+@ApiTags('Experimental Routes')
 @Controller('experimental')
 export class ExperimentalController {
 

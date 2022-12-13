@@ -1,7 +1,9 @@
 import { LoginResponseDTO, UserDTO } from '@apicore/teiu/lib';
 import { Body, Controller, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { AuthService } from './auth.service';
 
+@ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
 
