@@ -1,7 +1,7 @@
+import { Filter } from '@apicore/nestjs/lib';
 import { SlideDTO } from '@apicore/teiu/lib';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Filter } from 'src/entities/core/filter';
 import { Image } from "src/entities/image";
 import { Slide } from 'src/entities/slide';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';

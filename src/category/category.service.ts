@@ -1,7 +1,7 @@
+import { Filter } from '@apicore/nestjs/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/entities/category';
-import { Filter } from 'src/entities/core/filter';
 import { SaveCategoryValidation } from 'src/validations/save-category.validation';
 import { Repository } from 'typeorm';
 

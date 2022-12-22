@@ -1,7 +1,7 @@
+import { Filter } from '@apicore/nestjs/lib';
 import { TipDTO } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Filter } from 'src/entities/core/filter';
 import { Tip } from 'src/entities/tip';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';

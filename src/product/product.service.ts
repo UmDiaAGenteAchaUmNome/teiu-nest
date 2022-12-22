@@ -1,10 +1,9 @@
+import { Filter } from '@apicore/nestjs/lib';
 import { ProductDTO } from '@apicore/teiu/lib';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Filter } from 'src/entities/core/filter';
 import { Product } from 'src/entities/product';
 import { ProductDetail } from 'src/entities/product-detail';
-import { ProductDetailItem } from 'src/entities/product-detail-item';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
 
@@ -19,9 +18,6 @@ export class ProductService {
 
         @InjectRepository(ProductDetail)
         private readonly productDetailRepository: Repository<ProductDetail>,
-
-        @InjectRepository(ProductDetailItem)
-        private readonly productDetailItemRepository: Repository<ProductDetailItem>,
 
         private cloudinaryService: CloudinaryService,
         private filter: Filter

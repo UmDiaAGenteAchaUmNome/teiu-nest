@@ -1,6 +1,6 @@
+import { Filter } from '@apicore/nestjs/lib';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Filter } from 'src/entities/core/filter';
 import { Product } from 'src/entities/product';
 import { ProductDetail } from 'src/entities/product-detail';
 import { ProductDetailItem } from 'src/entities/product-detail-item';

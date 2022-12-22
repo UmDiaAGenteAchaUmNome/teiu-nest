@@ -22,14 +22,19 @@ export class AuthService {
     }
 
     public async login(user: UserDTO): Promise<LoginResponseDTO> {
+        console.log(user)
         this.isUserValid(user)
+        // this.logger.debug("Init...")
 
-        let loggedUser = await this.userRepository.findOneBy({ user: user.name })
+        let loggedUser = await this.userRepository.findOneBy({ user: user.user })
         this.isUserValid(loggedUser)
+        // this.logger.debug("Got logged user...")
+        // // console.log(loggedUser)
 
         if (!await this.crypt.valuesMatch(loggedUser.password, user.password))
             throw new BadRequestException('CPF ou Senha inválidos')
 
+        // this.logger.debug("Error...")
         return new LoginResponseDTO().build(loggedUser, this.jwtGenerator.generate(loggedUser))
     }
 

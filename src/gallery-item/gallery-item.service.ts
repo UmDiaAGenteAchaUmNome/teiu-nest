@@ -1,7 +1,7 @@
+import { Filter } from '@apicore/nestjs/lib';
 import { GalleryItemDTO } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Filter } from 'src/entities/core/filter';
 import { GalleryItem } from 'src/entities/gallery-item';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
