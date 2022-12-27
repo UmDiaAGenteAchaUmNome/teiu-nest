@@ -18,7 +18,6 @@ export class SlideService {
         private readonly slideRepository: Repository<Slide>,
         @InjectRepository(Image)
         private readonly imageRepository: Repository<Image>,
-
         private readonly cloudinaryService: CloudinaryService,
         private readonly saveSlideValidation: SaveSlideValidation,
         private readonly filter: Filter
@@ -38,7 +37,8 @@ export class SlideService {
     public async saveSlide(slide: SlideDTO) {
         await this.saveSlideValidation.validate(slide)
 
-        slide = await this.updateCloudinaryImages(slide)
+        slide = await this.saveCloudinaryImages(slide)
+        console.log(slide)
         return await this.slideRepository.save(slide)
     }
 
@@ -46,14 +46,16 @@ export class SlideService {
         await this.slideRepository.delete(slideId)
     }
 
-    private async updateCloudinaryImages(slide: SlideDTO) {
+    private async saveCloudinaryImages(slide: SlideDTO) {
         if (slide.image.base64src) {
-            slide.image = await this.cloudinaryService.uploadImageDto(slide.image)
+            slide.image = await this.cloudinaryService.uploadImageDto(slide.image, `teiu/slides/${slide.title}`)
+            console.log(slide.image)
             this.imageRepository.save(slide.image)
         }
 
         if (slide.bgImage.base64src) {
             slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `teiu/slides/${slide.title}`)
+            console.log(slide.bgImage)
             this.imageRepository.save(slide.bgImage)
         }
 
