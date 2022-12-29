@@ -42,12 +42,12 @@ export class Slide extends Timestamps {
     @ApiProperty()
     btnBgColor?: string
 
-    @OneToOne(() => Image, { cascade: true })
+    @OneToOne(() => Image)
     @JoinColumn()
     @ApiProperty()
     image?: Image
 
-    @OneToOne(() => Image, { cascade: true })
+    @OneToOne(() => Image)
     @JoinColumn()
     @ApiProperty()
     bgImage?: Image

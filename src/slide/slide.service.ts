@@ -38,7 +38,6 @@ export class SlideService {
         await this.saveSlideValidation.validate(slide)
 
         slide = await this.saveCloudinaryImages(slide)
-        console.log(slide)
         return await this.slideRepository.save(slide)
     }
 
@@ -49,14 +48,12 @@ export class SlideService {
     private async saveCloudinaryImages(slide: SlideDTO) {
         if (slide.image.base64src) {
             slide.image = await this.cloudinaryService.uploadImageDto(slide.image, `teiu/slides/${slide.title}`)
-            console.log(slide.image)
-            this.imageRepository.save(slide.image)
+            await this.imageRepository.save(slide.image)
         }
 
         if (slide.bgImage.base64src) {
             slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `teiu/slides/${slide.title}`)
-            console.log(slide.bgImage)
-            this.imageRepository.save(slide.bgImage)
+            await this.imageRepository.save(slide.bgImage)
         }
 
         return slide

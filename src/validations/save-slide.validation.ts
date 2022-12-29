@@ -38,7 +38,7 @@ export class SaveSlideValidation {
 
         const matchingSlides = await this.slideRepository.find({ where: { title: this.slide.title } })
 
-        if (matchingSlides.length > 0)
+        if (matchingSlides.length > 0 && matchingSlides[0].id != this.slide.id)
             throw new BadRequestException('Não é possível ter slides com nomes duplicados')
     }
 

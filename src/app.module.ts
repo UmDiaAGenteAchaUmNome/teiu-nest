@@ -13,6 +13,7 @@ import { ProductModule } from './product/product.module';
 import { SlideModule } from './slide/slide.module';
 import { TipModule } from './tip/tip.module';
 import { UserModule } from './user/user.module';
+import { ProjectCategoryModule } from './project-category/project-category.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { UserModule } from './user/user.module';
     TipModule,
     GalleryItemModule,
     AccordionItemModule,
-    ProductDetailModule
+    ProductDetailModule,
+    ProjectCategoryModule
   ],
   providers: [JwtStrategy]
 })

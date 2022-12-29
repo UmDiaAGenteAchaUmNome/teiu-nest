@@ -37,7 +37,7 @@ export class TipService {
         if (tip.image.base64src) {
             tip.image = await this.cloudinaryService.uploadImageDto(
                 tip.image,
-                `teiu/tips/${tip.image.title}`
+                `teiu/tips/${tip.title}`
             )
 
             return tip
