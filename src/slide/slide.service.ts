@@ -30,6 +30,13 @@ export class SlideService {
         })
     }
 
+    public async listActiveSlides() {
+        return await this.slideRepository.find({
+            relations: ['image', 'bgImage'],
+            where: { active: true }
+        })
+    }
+
     public async findSlideById(slideId: number) {
         return await this.slideRepository.findOne({ where: { id: slideId }, relations: ['image', 'bgImage'] })
     }

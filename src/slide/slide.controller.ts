@@ -18,6 +18,11 @@ export class SlideController {
         return await this.slideService.listSlides(filters)
     }
 
+    @Get('active')
+    public async listActiveSlides(): Promise<Slide[]> {
+        return await this.slideService.listActiveSlides()
+    }
+
     @Get(':id')
     public async findSlideById(@Param('id') slideId: number): Promise<Slide> {
         return await this.slideService.findSlideById(slideId)
