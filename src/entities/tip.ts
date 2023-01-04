@@ -26,7 +26,7 @@ export class Tip extends Timestamps {
     @ApiProperty()
     author?: string;
 
-    @Column({ type: 'text' })
+    @Column({ type: 'mediumtext' })
     @ApiProperty()
     post?: string;
 
