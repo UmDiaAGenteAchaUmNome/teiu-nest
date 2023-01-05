@@ -14,6 +14,8 @@ import { SlideModule } from './slide/slide.module';
 import { TipModule } from './tip/tip.module';
 import { UserModule } from './user/user.module';
 import { ProjectCategoryModule } from './project-category/project-category.module';
+import { AmbientModule } from './ambient/ambient.module';
+import { BrandModule } from './brand/brand.module';
 
 @Module({
   imports: [
@@ -30,7 +32,9 @@ import { ProjectCategoryModule } from './project-category/project-category.modul
     GalleryItemModule,
     AccordionItemModule,
     ProductDetailModule,
-    ProjectCategoryModule
+    ProjectCategoryModule,
+    AmbientModule,
+    BrandModule
   ],
   providers: [JwtStrategy]
 })
