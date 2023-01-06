@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@apicore/nestjs": "^0.0.1",
-    "@apicore/teiu": "^5.1.0",
+    "@apicore/teiu": "^5.2.0",
     "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",

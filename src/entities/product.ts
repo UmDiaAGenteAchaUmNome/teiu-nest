@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger/dist";
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Ambient } from "./ambient";
+import { Brand } from "./brand";
 import { Category } from "./category";
 import { Timestamps } from "./core/timestamps";
 import { Image } from "./image";
@@ -40,6 +42,14 @@ export class Product extends Timestamps {
     @ManyToOne(() => Category, (category) => category.products)
     @ApiProperty()
     category?: Category
+
+    @ManyToOne(() => Ambient, (ambient) => ambient.products)
+    @ApiProperty()
+    ambient?: Ambient
+
+    @ManyToOne(() => Brand, (brand) => brand.products)
+    @ApiProperty()
+    brand?: Brand
 
     @OneToMany(() => ProductDetail, (detail) => detail.product)
     @ApiProperty()
