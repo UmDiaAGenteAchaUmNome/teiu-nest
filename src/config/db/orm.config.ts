@@ -6,6 +6,7 @@ import { Ambient } from "src/entities/ambient";
 import { Brand } from "src/entities/brand";
 import { Category } from "src/entities/category";
 import { GalleryItem } from "src/entities/gallery-item";
+import { Highlight } from "src/entities/highlight";
 import { Image } from "src/entities/image";
 import { Post } from "src/entities/post";
 import { Product } from "src/entities/product";
@@ -38,7 +39,8 @@ import { User } from "src/entities/user";
                 ProductDetail,
                 ProductDetailItem,
                 Brand,
-                Ambient
+                Ambient,
+                Highlight
             ]
         }),
     ],

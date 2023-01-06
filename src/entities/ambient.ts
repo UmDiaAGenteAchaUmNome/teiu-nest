@@ -1,9 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Timestamps } from "./core/timestamps"
 import { Product } from "./product"
 
 @Entity()
-export class Ambient {
+export class Ambient extends Timestamps {
     @PrimaryGeneratedColumn()
     @ApiProperty()
     id?: number

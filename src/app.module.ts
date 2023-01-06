@@ -16,6 +16,7 @@ import { UserModule } from './user/user.module';
 import { ProjectCategoryModule } from './project-category/project-category.module';
 import { AmbientModule } from './ambient/ambient.module';
 import { BrandModule } from './brand/brand.module';
+import { HighlightModule } from './highlight/highlight.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { BrandModule } from './brand/brand.module';
     ProductDetailModule,
     ProjectCategoryModule,
     AmbientModule,
-    BrandModule
+    BrandModule,
+    HighlightModule
   ],
   providers: [JwtStrategy]
 })
