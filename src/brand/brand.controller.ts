@@ -1,8 +1,10 @@
 import { Controller } from '@nestjs/common';
 import { Body, Delete, Get, Param, Post, Query } from '@nestjs/common/decorators';
+import { ApiTags } from '@nestjs/swagger';
 import { Brand } from 'src/entities/brand';
 import { BrandService } from './brand.service';
 
+@ApiTags('Brand')
 @Controller('brand')
 export class BrandController {
 
