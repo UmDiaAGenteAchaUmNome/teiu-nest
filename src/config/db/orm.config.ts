@@ -12,8 +12,8 @@ import { Post } from "src/entities/post";
 import { Product } from "src/entities/product";
 import { ProductDetail } from "src/entities/product-detail";
 import { ProductDetailItem } from "src/entities/product-detail-item";
+import { Project } from "src/entities/project";
 import { Slide } from "src/entities/slide";
-import { Tip } from "src/entities/tip";
 import { User } from "src/entities/user";
 @Module({
     imports: [
@@ -32,7 +32,7 @@ import { User } from "src/entities/user";
                 User,
                 Category,
                 Post,
-                Tip,
+                Project,
                 GalleryItem,
                 AccordionItem,
                 Image,

@@ -5,7 +5,7 @@ import { Image } from "./image";
 import { User } from "./user";
 
 @Entity()
-export class Tip extends Timestamps {
+export class Project extends Timestamps {
     @PrimaryGeneratedColumn()
     @ApiProperty()
     id?: number

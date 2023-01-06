@@ -1,22 +1,22 @@
 import { Filter } from '@apicore/nestjs/lib';
-import { TipDTO } from '@apicore/teiu/lib';
+import { ProjectDTO } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Tip } from 'src/entities/tip';
+import { Project } from 'src/entities/project';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class TipService {
+export class ProjectService {
 
     constructor(
-        @InjectRepository(Tip)
-        private readonly repository: Repository<Tip>,
+        @InjectRepository(Project)
+        private readonly repository: Repository<Project>,
         private readonly filter: Filter,
         private readonly cloudinaryService: CloudinaryService,
     ) { }
 
-    public async search(filters?: Tip) {
+    public async search(filters?: Project) {
         return await this.repository.find({ where: this.filter.build(filters), relations: ["image", "user"] })
     }
 
@@ -24,25 +24,25 @@ export class TipService {
         return await this.repository.findOne({ where: { id }, relations: ["image", "user"] })
     }
 
-    public async save(tip: TipDTO) {
-        await this.uploadCloudinaryImages(tip)
-        return await this.repository.save(tip)
+    public async save(project: ProjectDTO) {
+        await this.uploadCloudinaryImages(project)
+        return await this.repository.save(project)
     }
 
     public async delete(id: number) {
         await this.repository.delete(id)
     }
 
-    private async uploadCloudinaryImages(tip: TipDTO) {
-        if (tip.image.base64src) {
-            tip.image = await this.cloudinaryService.uploadImageDto(
-                tip.image,
-                `teiu/tips/${tip.title}`
+    private async uploadCloudinaryImages(project: ProjectDTO) {
+        if (project.image.base64src) {
+            project.image = await this.cloudinaryService.uploadImageDto(
+                project.image,
+                `teiu/projects/${project.title}`
             )
 
-            return tip
+            return project
         }
 
-        return tip
+        return project
     }
 }
