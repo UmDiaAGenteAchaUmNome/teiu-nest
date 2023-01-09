@@ -4,7 +4,7 @@ import { Timestamps } from "./core/timestamps";
 import { Image } from "./image";
 
 @Entity()
-export class Highlight extends Timestamps {
+export class Featured extends Timestamps {
 
     @PrimaryGeneratedColumn()
     id?: number

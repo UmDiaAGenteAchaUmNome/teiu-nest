@@ -33,6 +33,16 @@ export class ProjectService {
         await this.repository.delete(id)
     }
 
+    public async findLatestProject(limit?: number) {
+        return await this.repository.find({
+            order: {
+                updatedAt: 'DESC'
+            },
+            relations: ['image', 'user'],
+            take: limit || 5
+        })
+    }
+
     private async uploadCloudinaryImages(project: ProjectDTO) {
         if (project.image.base64src) {
             project.image = await this.cloudinaryService.uploadImageDto(
@@ -45,4 +55,5 @@ export class ProjectService {
 
         return project
     }
+
 }

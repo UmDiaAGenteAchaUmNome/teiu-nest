@@ -1,25 +1,25 @@
 import { Filter } from '@apicore/nestjs/lib';
-import { HighlightDTO } from '@apicore/teiu/lib';
+import { FeaturedDTO } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Highlight } from 'src/entities/highlight';
+import { Featured } from 'src/entities/featured';
 import { Image } from 'src/entities/image';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class HighlightService {
+export class FeaturedService {
 
     constructor(
-        @InjectRepository(Highlight)
-        private readonly repository: Repository<Highlight>,
+        @InjectRepository(Featured)
+        private readonly repository: Repository<Featured>,
         @InjectRepository(Image)
         private readonly imageRepository: Repository<Image>,
         private readonly filter: Filter,
         private readonly cloudinaryService: CloudinaryService
     ) { }
 
-    public async search(filters?: Highlight) {
+    public async search(filters?: Featured) {
         return await this.repository.find({
             where: this.filter.build(filters),
             relations: ['image']
@@ -33,22 +33,26 @@ export class HighlightService {
         })
     }
 
-    public async save(highlight: HighlightDTO) {
-        return await this.repository.save(highlight)
+    public async save(featuredProduct: FeaturedDTO) {
+        featuredProduct = await this.saveImage(featuredProduct)
+        return await this.repository.save(featuredProduct)
     }
 
     public async delete(id: number) {
         return await this.repository.delete(id)
     }
 
-    private async saveImage(highlight: HighlightDTO) {
-        if (highlight.image.link && !highlight.image.base64src) {
-            highlight.image = await this.cloudinaryService.uploadImageDto(
-                highlight.image,
+    private async saveImage(featuredProduct: FeaturedDTO) {
+        if (!featuredProduct.image.link && featuredProduct.image.base64src) {
+            featuredProduct.image = await this.cloudinaryService.uploadImageDto(
+                featuredProduct.image,
                 `teiu/destaques`
             )
-            await this.imageRepository.save(highlight.image)
+
+            featuredProduct.image = await this.imageRepository.save(featuredProduct.image)
         }
+
+        return featuredProduct
     }
 
 }

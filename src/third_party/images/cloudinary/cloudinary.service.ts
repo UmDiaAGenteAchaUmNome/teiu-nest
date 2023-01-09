@@ -1,7 +1,6 @@
 import { ImageDTO } from '@apicore/teiu/lib';
 import { Injectable, Logger } from '@nestjs/common';
 import { TransformationOptions, v2 as cloudinary } from 'cloudinary';
-import { CloudinaryCredentials } from 'src/config/third_party/images/cloudinary.config';
 
 @Injectable()
 export class CloudinaryService {
@@ -10,7 +9,7 @@ export class CloudinaryService {
 
     public async uploadImage(image: ImageDTO, path?: string, transformation?: TransformationOptions): Promise<string> {
         try {
-            cloudinary.config(CloudinaryCredentials)
+            cloudinary.config(this.initCloudinaryCredentials())
 
             let uploadResponse = await cloudinary.uploader.upload(image.base64src, {
                 folder: path || 'teiu',
@@ -30,7 +29,7 @@ export class CloudinaryService {
 
     public async uploadImageDto(image: ImageDTO, path?: string, transformation?: TransformationOptions): Promise<ImageDTO> {
         try {
-            cloudinary.config(CloudinaryCredentials)
+            cloudinary.config(this.initCloudinaryCredentials())
 
             let uploadResponse = await cloudinary.uploader.upload(image.base64src, {
                 folder: path || 'teiu',
@@ -41,6 +40,7 @@ export class CloudinaryService {
             })
 
             this.logger.log(`Image Uploaded: ${image.title}. Link: ${uploadResponse.url}`)
+
             return {
                 link: uploadResponse.url,
                 title: image.title,
@@ -48,8 +48,16 @@ export class CloudinaryService {
             }
 
         } catch (error) {
-            console.error(error.error.code)
-            throw new Error(`Erro no upload da imagem: ${error.error.code}`)
+            console.error(error)
+            throw new Error(`Erro no upload da imagem: ${error.code}`)
+        }
+    }
+
+    private initCloudinaryCredentials() {
+        return {
+            cloud_name: process.env.CLOUDINARY_NAME,
+            api_key: process.env.CLOUDINARY_KEY,
+            api_secret: process.env.CLOUDINARY_SECRET
         }
     }
 

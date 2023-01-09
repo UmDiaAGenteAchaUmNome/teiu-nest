@@ -2,12 +2,13 @@ import { ApiProperty } from "@nestjs/swagger/dist";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "./core/timestamps";
 import { Image } from "./image";
+import { ProjectCategory } from "./project-category";
 import { User } from "./user";
 
 @Entity()
 export class Project extends Timestamps {
     @PrimaryGeneratedColumn()
-    @ApiProperty()
+    // @ApiProperty()
     id?: number
 
     @Column()
@@ -15,19 +16,19 @@ export class Project extends Timestamps {
     title?: string;
 
     @Column()
-    @ApiProperty()
+    // @ApiProperty()
     subtitle?: string;
 
     @Column()
-    @ApiProperty()
+    // @ApiProperty()
     description?: string;
 
     @Column()
-    @ApiProperty()
+    // @ApiProperty()
     author?: string;
 
     @Column({ type: 'mediumtext' })
-    @ApiProperty()
+    // @ApiProperty()
     post?: string;
 
     @OneToOne(() => Image, {
@@ -36,15 +37,19 @@ export class Project extends Timestamps {
         onUpdate: 'CASCADE'
     })
     @JoinColumn()
-    @ApiProperty()
+    // @ApiProperty()
     image?: Image
 
     @Column()
-    @ApiProperty()
+    // @ApiProperty()
     routerLink?: string;
 
     @ManyToOne(() => User)
     @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
-    @ApiProperty()
+    // @ApiProperty()
     user?: User
+
+    @ManyToOne(() => ProjectCategory, (projectCategory) => projectCategory.projects)
+    // @ApiProperty()
+    projectCategory?: ProjectCategory
 };
