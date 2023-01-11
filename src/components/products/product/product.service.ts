@@ -26,14 +26,14 @@ export class ProductService {
     public async listProducts(filters?: Product) {
         return await this.productRepository.find({
             where: this.filter.build(filters),
-            relations: ["category", "images", "details", "details.details"]
+            relations: ["category", "images", "details", "details.details", "brand", "ambient"]
         })
     }
 
     public async findProductById(productId: number) {
         return await this.productRepository.findOne({
             where: { id: productId },
-            relations: ["category", "images", "details", "details.details"]
+            relations: ["category", "images", "details", "details.details", "brand", "ambient"]
         })
     }
 
