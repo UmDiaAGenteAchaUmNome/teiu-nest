@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger/dist";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Timestamps } from "./core/timestamps";
-import { Image } from "./image";
+import { Timestamps } from "../core/timestamps";
+import { Image } from "../image";
+import { User } from "../user";
 import { ProjectCategory } from "./project-category";
-import { User } from "./user";
 
 @Entity()
 export class Project extends Timestamps {

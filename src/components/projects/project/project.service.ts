@@ -2,7 +2,7 @@ import { Filter } from '@apicore/nestjs/lib';
 import { ProjectDTO } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Project } from 'src/entities/project';
+import { Project } from 'src/entities/project/project';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { Repository } from 'typeorm';
 

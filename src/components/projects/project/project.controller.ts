@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Headers, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
-import { Project } from 'src/entities/project';
+import { Project } from 'src/entities/project/project';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { getLoggedUser } from 'src/helpers/auth/jwt/logged-user.helper';
 import { ProjectService } from './project.service';

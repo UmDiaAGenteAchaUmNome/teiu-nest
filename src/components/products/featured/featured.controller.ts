@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Featured } from 'src/entities/featured';
 import { FeaturedService } from './featured.service';
 
 @Controller('featured')
+@ApiTags('Featured Products')
 export class FeaturedController {
 
     constructor(

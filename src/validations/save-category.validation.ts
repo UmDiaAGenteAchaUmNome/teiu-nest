@@ -1,20 +1,20 @@
-import { CategoryDTO } from "@apicore/teiu/lib";
+import { ProductCategoryDTO } from "@apicore/teiu/lib";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Category } from "src/entities/category";
+import { ProductCategory } from "src/entities/product/product-category";
 import { Repository } from "typeorm";
 
 @Injectable()
 export class SaveCategoryValidation {
 
-    category: Category | CategoryDTO
+    category: ProductCategory | ProductCategoryDTO
 
     constructor(
-        @InjectRepository(Category)
-        private readonly categoryRepository: Repository<Category>
+        @InjectRepository(ProductCategory)
+        private readonly categoryRepository: Repository<ProductCategory>
     ) { }
 
-    public async validate(category: Category | CategoryDTO) {
+    public async validate(category: ProductCategory | ProductCategoryDTO) {
         this.category = category
 
         await this.validateTitle()

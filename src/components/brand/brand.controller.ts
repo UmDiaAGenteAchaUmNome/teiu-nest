@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { Body, Delete, Get, Param, Post, Query } from '@nestjs/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
-import { Brand } from 'src/entities/brand';
+import { ProductBrand } from 'src/entities/product/product-brand';
 import { BrandService } from './brand.service';
 
 @ApiTags('Brand')
@@ -13,7 +13,7 @@ export class BrandController {
     ) { }
 
     @Get()
-    public async searchBrands(@Query() filters?: Brand) {
+    public async searchBrands(@Query() filters?: ProductBrand) {
         return await this.service.search(filters)
     }
 
@@ -23,7 +23,7 @@ export class BrandController {
     }
 
     @Post()
-    public async saveBrand(@Body() brand: Brand) {
+    public async saveBrand(@Body() brand: ProductBrand) {
         return await this.service.save(brand)
     }
 

@@ -20,11 +20,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "nest-component": "nest generate module %npm_config_name% && nest generate controller %npm_config_name% && nest generate service %npm_config_name%"
+    "nest-component": "nest generate module components/%npm_config_name% && nest generate controller components/%npm_config_name% && nest generate service components/%npm_config_name%"
   },
   "dependencies": {
     "@apicore/nestjs": "^0.0.1",
-    "@apicore/teiu": "^5.3.1",
+    "@apicore/teiu": "^6.0.0",
     "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",

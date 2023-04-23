@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
-import { ProjectCategory } from 'src/entities/project-category';
+import { ApiTags } from '@nestjs/swagger';
+import { ProjectCategory } from 'src/entities/project/project-category';
 import { ProjectCategoryService } from './project-category.service';
 
 @Controller('project-category')
+@ApiTags('Project Category')
 export class ProjectCategoryController {
 
     constructor(

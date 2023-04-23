@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Timestamps } from "./core/timestamps";
+import { Timestamps } from "../core/timestamps";
 import { Project } from "./project";
 
 @Entity()

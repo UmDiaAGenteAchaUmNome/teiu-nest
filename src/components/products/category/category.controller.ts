@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
-import { Category } from 'src/entities/category';
+import { ProductCategory } from 'src/entities/product/product-category';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { CategoryService } from './category.service';
 
@@ -13,7 +13,7 @@ export class CategoryController {
     ) { }
 
     @Get()
-    public async searchCategories(@Query() filters?: Category) {
+    public async searchCategories(@Query() filters?: ProductCategory) {
         return await this.categoryService.search(filters)
     }
 
@@ -24,13 +24,13 @@ export class CategoryController {
 
     @Post()
     @UseGuards(JwtGuard)
-    public async createCategory(@Body() category: Category) {
+    public async createCategory(@Body() category: ProductCategory) {
         return await this.categoryService.save(category)
     }
 
     @Put(':id')
     @UseGuards(JwtGuard)
-    public async updateCategory(@Param('id') categoryId: number, @Body() category: Category) {
+    public async updateCategory(@Param('id') categoryId: number, @Body() category: ProductCategory) {
         return await this.categoryService.save(category)
     }
 

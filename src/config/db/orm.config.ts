@@ -2,18 +2,18 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccordionItem } from "src/entities/accordion-item";
-import { Ambient } from "src/entities/ambient";
-import { Brand } from "src/entities/brand";
-import { Category } from "src/entities/category";
 import { Featured } from "src/entities/featured";
 import { GalleryItem } from "src/entities/gallery-item";
 import { Image } from "src/entities/image";
 import { Post } from "src/entities/post";
-import { Product } from "src/entities/product";
-import { ProductDetail } from "src/entities/product-detail";
-import { ProductDetailItem } from "src/entities/product-detail-item";
-import { Project } from "src/entities/project";
-import { ProjectCategory } from "src/entities/project-category";
+import { Product } from "src/entities/product/product";
+import { ProductAmbient } from "src/entities/product/product-ambient";
+import { ProductBrand } from "src/entities/product/product-brand";
+import { ProductCategory } from "src/entities/product/product-category";
+import { ProductDetail } from "src/entities/product/product-detail";
+import { ProductLine } from "src/entities/product/product-line";
+import { Project } from "src/entities/project/project";
+import { ProjectCategory } from "src/entities/project/project-category";
 import { Slide } from "src/entities/slide";
 import { User } from "src/entities/user";
 @Module({
@@ -29,20 +29,20 @@ import { User } from "src/entities/user";
             synchronize: true,
             entities: [
                 Product,
+                ProductLine,
+                ProductDetail,
+                ProductAmbient,
+                ProductCategory,
+                ProductBrand,
                 Slide,
                 User,
-                Category,
                 Post,
                 Project,
+                ProjectCategory,
                 GalleryItem,
                 AccordionItem,
                 Image,
-                ProductDetail,
-                ProductDetailItem,
-                Brand,
-                Ambient,
-                Featured,
-                ProjectCategory
+                Featured
             ]
         }),
     ],

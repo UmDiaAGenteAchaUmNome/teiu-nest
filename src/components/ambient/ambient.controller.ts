@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Ambient } from 'src/entities/ambient';
+import { ProductAmbient } from 'src/entities/product/product-ambient';
 import { AmbientService } from './ambient.service';
 
 @ApiTags('Ambient')
@@ -12,7 +12,7 @@ export class AmbientController {
     ) { }
 
     @Get()
-    public async searchAmbient(@Query() filters?: Ambient) {
+    public async searchAmbient(@Query() filters?: ProductAmbient) {
         return await this.service.search(filters)
     }
 
@@ -22,7 +22,7 @@ export class AmbientController {
     }
 
     @Post()
-    public async saveAmbient(@Body() ambient: Ambient) {
+    public async saveAmbient(@Body() ambient: ProductAmbient) {
         return await this.service.save(ambient)
     }
 

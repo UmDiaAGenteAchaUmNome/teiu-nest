@@ -1,6 +1,6 @@
 import { CloudinaryImage } from '@apicore/teiu/lib/third-party';
 import { HttpService } from '@nestjs/axios';
-import { Body, Controller, Get, Headers, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Param, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { CryptHelper } from 'src/helpers/auth/crypt.helper';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
@@ -43,5 +43,39 @@ export class ExperimentalController {
         const token = headers.authorization.split(" ")[1]
 
         return JSON.parse(Buffer.from((token.split('.')[1]), 'base64').toString()).user
+    }
+
+    @Get("data")
+    public async getALotOfData(@Query() params: any) {
+        const data = []
+        console.log(params)
+
+        for (let size = 0; size < params.$pageSize; size++) {
+            data.push({
+                keys: {
+                    id: size + 1
+                },
+                values: {
+                    firstColumn: `Example First Column Item ${size + 1}`,
+                    secondColumn: `Example Second Column Item ${size + 1}`,
+                    scenario: `Scenario ${size + 1}`
+                }
+            })
+        }
+
+        return {
+            links: {
+                self: `example/customObjectData/token/tokenExample/rowset?$page=${params.$pageSize}`
+            },
+            requestToken: 'tokenExample',
+            tokenExpireDateUtc: '2023-04-07T14:32:00.07',
+            customObjectId: 'objectIdExample',
+            customObjectKey: 'customObjectIdExample',
+            pageSize: params.$pageSize,
+            page: 1,
+            count: params.$pageSize,
+            top: 0,
+            items: data
+        }
     }
 }

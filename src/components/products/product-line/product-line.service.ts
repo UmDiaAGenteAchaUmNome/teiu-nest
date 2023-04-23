@@ -1,38 +1,38 @@
 import { Filter } from '@apicore/nestjs/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProjectCategory } from 'src/entities/project/project-category';
+import { ProductLine } from 'src/entities/product/product-line';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class ProjectCategoryService {
+export class ProductLineService {
 
     constructor(
-        @InjectRepository(ProjectCategory)
-        private readonly repository: Repository<ProjectCategory>,
+        @InjectRepository(ProductLine)
+        private readonly repository: Repository<ProductLine>,
         private readonly filter: Filter
     ) { }
 
-    public async search(filters?: ProjectCategory) {
+    public async search(filters?: ProductLine) {
         return await this.repository.find({
             where: this.filter.build(filters),
-            relations: ['projects']
+            relations: ['products', 'image']
         })
     }
 
     public async findById(id: number) {
         return await this.repository.findOne({
             where: { id },
-            relations: ['projects']
+            relations: ['products', 'image']
         })
     }
 
-    public async save(category: ProjectCategory) {
-        return await this.repository.save(category)
+    public async save(productLine: ProductLine) {
+        return await this.repository.save(productLine)
     }
 
     public async delete(id: number) {
-        return await this.repository.delete(id)
+        await this.repository.delete(id)
     }
 
 }
