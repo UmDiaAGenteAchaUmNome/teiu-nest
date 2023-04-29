@@ -1,4 +1,3 @@
-import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "../core/timestamps";
 import { ProductAmbient } from "./product-ambient";
@@ -11,39 +10,39 @@ import { ProductLine } from "./product-line";
 export class Product extends Timestamps {
 
     @PrimaryGeneratedColumn()
-    @ApiProperty()
+    // @ApiProperty()
     id?: number
 
     @Column()
-    @ApiProperty()
+    // @ApiProperty()
     title?: string
 
     @Column()
-    @ApiProperty()
+    // @ApiProperty()
     subtitle?: string
 
     @Column("text")
-    @ApiProperty()
+    // @ApiProperty()
     description?: string
 
     @Column()
-    @ApiProperty()
+    // @ApiProperty()
     altDescription?: string
 
     @ManyToOne(() => ProductCategory, (category) => category.products)
-    @ApiProperty()
+    // @ApiProperty()
     category?: ProductCategory
 
     @ManyToOne(() => ProductLine, (productLine) => productLine.products)
-    @ApiProperty()
+    // @ApiProperty()
     productLine?: ProductLine
 
     @ManyToOne(() => ProductAmbient, (ambient) => ambient.products)
-    @ApiProperty()
+    // @ApiProperty()
     ambient?: ProductAmbient
 
     @ManyToOne(() => ProductBrand, (brand) => brand.products)
-    @ApiProperty()
+    // @ApiProperty()
     brand?: ProductBrand
 
     @OneToMany(() => ProductDetail, (detail) => detail.product, {
@@ -51,7 +50,7 @@ export class Product extends Timestamps {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
     })
-    @ApiProperty()
+    // @ApiProperty()
     details?: ProductDetail[]
 
 }

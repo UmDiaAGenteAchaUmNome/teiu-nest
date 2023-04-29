@@ -78,4 +78,26 @@ export class ExperimentalController {
             items: data
         }
     }
+
+    @Post('agenda')
+    public filterScheduleData(@Body() agendas: any[]) {
+        let tableData = agendas.map(agenda => {
+            return {
+                localDto: agenda.localDto,
+                horarioFuncionamentoDtoList: {
+                    seg: agenda.horarioFuncionamentoDtoList.filter(horario => horario.nrDiaSemana == 0),
+                    ter: agenda.horarioFuncionamentoDtoList.filter(horario => horario.nrDiaSemana == 1),
+                    qua: agenda.horarioFuncionamentoDtoList.filter(horario => horario.nrDiaSemana == 2),
+                    qui: agenda.horarioFuncionamentoDtoList.filter(horario => horario.nrDiaSemana == 3),
+                    sex: agenda.horarioFuncionamentoDtoList.filter(horario => horario.nrDiaSemana == 4)
+                }
+            }
+        })
+
+        Object.keys(tableData[0].horarioFuncionamentoDtoList).forEach(item => {
+            console.log(item)
+        })
+
+        return tableData
+    }
 }
