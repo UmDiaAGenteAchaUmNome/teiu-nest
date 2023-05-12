@@ -50,6 +50,7 @@ export class ProductService {
     public async saveProduct(product: ProductDTO) {
         product.details = await this.uploadCloudinaryImages(product)
         console.log((product as Product).details)
+        product.altDescription = ""
         await this.productRepository.save(product as Product)
 
         return product

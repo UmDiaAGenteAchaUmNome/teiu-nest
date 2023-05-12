@@ -31,6 +31,9 @@ export class SlideController {
     @Post()
     @UseGuards(JwtGuard)
     public async createSlide(@Body() slide: SlideDTO): Promise<Slide> {
+        //TODO: Tratar Atributos vazios
+        slide.routerLink = ""
+        slide.altDescription = ""
         return await this.slideService.saveSlide(slide)
     }
 
