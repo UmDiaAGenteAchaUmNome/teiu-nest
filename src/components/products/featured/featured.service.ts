@@ -15,6 +15,7 @@ export class FeaturedService {
     constructor(
         @InjectRepository(Featured)
         private readonly repository: Repository<Featured>,
+        
         @InjectRepository(Image)
         private readonly imageRepository: Repository<Image>,
         private readonly filter: Filter,
@@ -38,6 +39,11 @@ export class FeaturedService {
     public async save(featuredProduct: FeaturedDTO) {
         featuredProduct = await this.saveImage(featuredProduct)
         return await this.repository.save(featuredProduct)
+    }
+
+    public async update(id: number, featuredProject: any) {
+        featuredProject = await this.saveImage(featuredProject)
+        return await this.repository.update(id, featuredProject)
     }
 
     public async delete(id: number) {

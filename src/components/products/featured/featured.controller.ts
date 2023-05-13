@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Featured } from 'src/entities/featured';
 import { FeaturedService } from './featured.service';
@@ -24,6 +24,11 @@ export class FeaturedController {
     @Post()
     public async saveFeatured(@Body() featuredProduct) {
         return await this.service.save(featuredProduct)
+    }
+
+    @Put(":id")
+    public async updateFeatured(@Param("id") id: number, @Body() featuredProduct) {
+        return await this.service.update(id, featuredProduct)
     }
 
     @Delete(':id')
