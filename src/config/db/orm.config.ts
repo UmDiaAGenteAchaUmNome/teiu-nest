@@ -11,7 +11,6 @@ import { ProductAmbient } from "src/entities/product/product-ambient";
 import { ProductBrand } from "src/entities/product/product-brand";
 import { ProductCategory } from "src/entities/product/product-category";
 import { ProductDetail } from "src/entities/product/product-detail";
-import { ProductLine } from "src/entities/product/product-line";
 import { Project } from "src/entities/project/project";
 import { ProjectCategory } from "src/entities/project/project-category";
 import { Slide } from "src/entities/slide";
@@ -29,7 +28,6 @@ import { User } from "src/entities/user";
             synchronize: true,
             entities: [
                 Product,
-                ProductLine,
                 ProductDetail,
                 ProductAmbient,
                 ProductCategory,

@@ -4,7 +4,6 @@ import { ProductAmbient } from "./product-ambient";
 import { ProductBrand } from "./product-brand";
 import { ProductCategory } from "./product-category";
 import { ProductDetail } from "./product-detail";
-import { ProductLine } from "./product-line";
 
 @Entity()
 export class Product extends Timestamps {
@@ -32,10 +31,6 @@ export class Product extends Timestamps {
     @ManyToOne(() => ProductCategory, (category) => category.products)
     // @ApiProperty()
     category?: ProductCategory
-
-    @ManyToOne(() => ProductLine, (productLine) => productLine.products)
-    // @ApiProperty()
-    productLine?: ProductLine
 
     @ManyToOne(() => ProductAmbient, (ambient) => ambient.products)
     // @ApiProperty()

@@ -16,14 +16,14 @@ export class BrandService {
     public async search(filters?: ProductBrand) {
         return await this.repository.find({
             where: this.filter.build(filters),
-            relations: ['products']
+            relations: ['products', 'products.details', 'products.details.image']
         })
     }
 
     public async findById(id: number) {
         return await this.repository.findOne({
             where: { id },
-            relations: ['products']
+            relations: ['products', 'products.details', 'products.details.image']
         })
     }
 
