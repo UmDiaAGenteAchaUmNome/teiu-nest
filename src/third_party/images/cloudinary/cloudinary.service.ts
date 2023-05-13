@@ -12,8 +12,8 @@ export class CloudinaryService {
             cloudinary.config(this.initCloudinaryCredentials())
 
             let uploadResponse = await cloudinary.uploader.upload(image.base64src, {
-                folder: path || 'teiu',
-                public_id: image.title,
+                folder: path.trim() || 'teiu',
+                public_id: image.title.trim(),
                 overwrite: true,
                 unique_filename: true,
                 transformation: transformation
@@ -32,8 +32,8 @@ export class CloudinaryService {
             cloudinary.config(this.initCloudinaryCredentials())
 
             let uploadResponse = await cloudinary.uploader.upload(image.base64src, {
-                folder: path || 'teiu',
-                public_id: image.title,
+                folder: path.trim() || 'teiu',
+                public_id: image.title.trim(),
                 overwrite: true,
                 unique_filename: true,
                 transformation: transformation
