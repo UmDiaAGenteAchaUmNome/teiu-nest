@@ -7,6 +7,8 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class AmbientService {
 
+    private readonly relations: string[] = ['products', 'products.details', 'products.details.image']
+
     constructor(
         @InjectRepository(ProductAmbient)
         private readonly repository: Repository<ProductAmbient>,
@@ -16,14 +18,14 @@ export class AmbientService {
     public async search(filters?: ProductAmbient) {
         return await this.repository.find({
             where: this.filter.build(filters),
-            relations: ['products', 'products.details', 'products.details.image']
+            relations: this.relations
         })
     }
 
     public async findById(id: number) {
         return await this.repository.findOne({
             where: { id },
-            relations: ['products', 'products.details', 'products.details.image']
+            relations: this.relations
         })
     }
 

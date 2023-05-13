@@ -54,11 +54,13 @@ export class SlideService {
 
     private async saveCloudinaryImages(slide: SlideDTO) {
         if (slide.image.base64src) {
+            slide.image.title = slide.title.concat(`_${slide.image.title}`)
             slide.image = await this.cloudinaryService.uploadImageDto(slide.image, `teiu/slides/${slide.title}`)
             await this.imageRepository.save(slide.image)
         }
 
         if (slide.bgImage.base64src) {
+            slide.bgImage.title = slide.title.concat(`_${slide.bgImage.title}`)
             slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `teiu/slides/${slide.title}`)
             await this.imageRepository.save(slide.bgImage)
         }
