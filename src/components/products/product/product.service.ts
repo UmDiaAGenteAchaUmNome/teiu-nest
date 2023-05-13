@@ -12,7 +12,7 @@ import { Repository } from 'typeorm';
 export class ProductService {
 
     private readonly logger = new Logger(ProductService.name)
-    private readonly relations: string[] = ["category", "details", "details.image", "brand", "ambient", "productLine"]
+    private readonly relations: string[] = ["category", "details", "details.image", "brand", "ambient"]
 
     constructor(
         @InjectRepository(Product)
