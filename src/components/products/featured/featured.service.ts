@@ -10,6 +10,8 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class FeaturedService {
 
+    private readonly relations: string[] = ['image', 'category']
+
     constructor(
         @InjectRepository(Featured)
         private readonly repository: Repository<Featured>,
@@ -22,14 +24,14 @@ export class FeaturedService {
     public async search(filters?: Featured) {
         return await this.repository.find({
             where: this.filter.build(filters),
-            relations: ['image']
+            relations: this.relations
         })
     }
 
     public async findById(id: number) {
         return await this.repository.findOne({
             where: { id },
-            relations: ['image']
+            relations: this.relations
         })
     }
 
