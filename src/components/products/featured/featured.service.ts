@@ -41,7 +41,7 @@ export class FeaturedService {
         return await this.repository.save(featuredProduct)
     }
 
-    public async update(id: number, featuredProject: any) {
+    public async update(id: number, featuredProject: FeaturedDTO) {
         featuredProject = await this.saveImage(featuredProject)
         return await this.repository.update(id, featuredProject)
     }
