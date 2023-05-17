@@ -15,7 +15,7 @@ export class ProductController {
     ) { }
 
     @Get()
-    public async listProducts(@Query() filters?: Product): Promise<Product[]> {
+    public async listProducts(@Query() filters?: any): Promise<Product[]> {
         return await this.productService.listProducts(filters)
     }
 

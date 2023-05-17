@@ -6,7 +6,7 @@ import { Image } from 'src/entities/image';
 import { Product } from 'src/entities/product/product';
 import { ProductDetail } from 'src/entities/product/product-detail';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
-import { Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
@@ -28,9 +28,16 @@ export class ProductService {
         private filter: Filter
     ) { }
 
-    public async listProducts(filters?: Product) {
+    public async listProducts(filters?: any) {
+        const queryParams = {
+            ambient: filters.ambients ? In(filters.ambients.split(',')) : null,
+            brand: filters.brands ? In(filters.brands.split(',')) : null,
+            category: filters.categories ? In(filters.categories.split(',')) : null,
+            title: filters.title ? ILike(`%${filters.title}%`) : null
+        }
+
         return await this.productRepository.find({
-            where: this.filter.build(filters),
+            where: this.checkFilters(queryParams),
             relations: this.relations,
             order: {
                 category: {
@@ -85,5 +92,16 @@ export class ProductService {
         )
 
         return uploadedImages
+    }
+
+    private checkFilters(filters?: any) {
+        Object.keys(filters).forEach((attr) => {
+            if (!filters[attr] || !filters[attr].value) {
+                delete filters[attr];
+                return;
+            }
+        });
+
+        return filters
     }
 }

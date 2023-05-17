@@ -39,8 +39,6 @@ export class CloudinaryService {
                 transformation: transformation
             })
 
-            this.logger.log(`Image Uploaded: ${image.title}. Link: ${uploadResponse.url}`)
-
             return {
                 link: uploadResponse.url,
                 title: image.title,
