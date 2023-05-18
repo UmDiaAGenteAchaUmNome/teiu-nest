@@ -36,7 +36,7 @@ export class GalleryItemService {
     private async uploadCloudinaryImages(galleryItem: GalleryItemDTO) {
         if (galleryItem.image.base64src) {
             galleryItem.image = await this.cloudinaryService.uploadImageDto(
-                galleryItem.image, `teiu/gallery`
+                galleryItem.image, `/gallery`
             )
         }
 

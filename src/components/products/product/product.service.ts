@@ -82,7 +82,7 @@ export class ProductService {
         let uploadedImages = await Promise.all(
             product.details.map(async (detail) => {
                 if (detail.image.base64src) {
-                    detail.image = await this.cloudinaryService.uploadImageDto(detail.image, `teiu/products/${product.title}`)
+                    detail.image = await this.cloudinaryService.uploadImageDto(detail.image, `/products/${product.title}`)
                     detail.image = await this.imageRepository.save(detail.image)
                     return detail
                 } else {

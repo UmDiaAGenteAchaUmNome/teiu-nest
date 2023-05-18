@@ -47,7 +47,7 @@ export class ProjectService {
         if (project.image.base64src) {
             project.image = await this.cloudinaryService.uploadImageDto(
                 project.image,
-                `teiu/projects/${project.title}`
+                `/projects/${project.title}`
             )
 
             return project

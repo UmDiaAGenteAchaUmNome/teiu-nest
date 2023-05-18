@@ -17,7 +17,7 @@ export class ExperimentalController {
 
     @Post("image-upload")
     public async uploadImageToCloudinary(@Body() image: CloudinaryImage) {
-        return await this.cloudinaryService.uploadImage(image)
+        // return await this.cloudinaryService.uploadImage(image)
     }
 
     @Get()

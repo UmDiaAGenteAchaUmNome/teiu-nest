@@ -17,4 +17,8 @@ export class Image extends Timestamps {
     @ApiProperty()
     link?: string
 
+    @Column()
+    @ApiProperty()
+    publicId?: string
+
 }

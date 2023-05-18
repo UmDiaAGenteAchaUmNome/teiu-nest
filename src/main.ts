@@ -2,12 +2,13 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { json, urlencoded } from 'express';
 import { AppModule } from './app.module';
+import envConfig from './config/env/env.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use(json({ limit: '50mb' }))
-  app.use(urlencoded({ extended: true, limit: process.env.REQUEST_SIZE_LIMIT }))
+  app.use(json({ limit: envConfig().app.requestSizeLimit}))
+  app.use(urlencoded({ extended: true, limit: envConfig().app.requestSizeLimit }))
   app.enableCors()
 
   const config = new DocumentBuilder()
@@ -19,6 +20,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(process.env.PORT);
+  await app.listen(envConfig().app.port);
 }
 bootstrap();

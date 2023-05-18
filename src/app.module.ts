@@ -17,10 +17,15 @@ import { SlideModule } from './components/slide/slide.module';
 import { UserModule } from './components/user/user.module';
 import { OrmConfig } from './config/db/orm.config';
 import { JwtStrategy } from './helpers/auth/jwt/jwt.strategy';
+import { ImageModule } from './components/image/image.module';
+import ConfigurationSettings from './config/env/env.config'
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [ConfigurationSettings]
+    }),
     OrmConfig,
     ProductModule,
     ExperimentalModule,
@@ -36,7 +41,8 @@ import { JwtStrategy } from './helpers/auth/jwt/jwt.strategy';
     ProjectCategoryModule,
     AmbientModule,
     BrandModule,
-    HighlightModule
+    HighlightModule,
+    ImageModule
   ],
   providers: [JwtStrategy]
 })

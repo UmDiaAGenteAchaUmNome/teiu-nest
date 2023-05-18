@@ -15,16 +15,17 @@ import { Project } from "src/entities/project/project";
 import { ProjectCategory } from "src/entities/project/project-category";
 import { Slide } from "src/entities/slide";
 import { User } from "src/entities/user";
+import envConfig from "../env/env.config";
 @Module({
     imports: [
         ConfigModule.forRoot(),
         TypeOrmModule.forRoot({
             type: 'mysql',
-            host: process.env.DB_HOST,
-            port: Number(process.env.DB_PORT),
-            username: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: process.env.DB_SCHEMA,
+            host: envConfig().database.host,
+            port: Number(envConfig().database.port),
+            username: envConfig().database.user,
+            password: envConfig().database.password,
+            database: envConfig().database.schema,
             synchronize: true,
             entities: [
                 Product,

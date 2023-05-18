@@ -54,7 +54,7 @@ export class FeaturedService {
         if (!featuredProduct.image.link && featuredProduct.image.base64src) {
             featuredProduct.image = await this.cloudinaryService.uploadImageDto(
                 featuredProduct.image,
-                `teiu/destaques`
+                `/destaques`
             )
 
             featuredProduct.image = await this.imageRepository.save(featuredProduct.image)

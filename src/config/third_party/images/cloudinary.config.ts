@@ -1,7 +1,8 @@
 import { ConfigOptions } from "cloudinary";
+import envConfig from "src/config/env/env.config";
 
 export const CloudinaryCredentials: ConfigOptions = {
-    cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET
+    cloud_name: envConfig().thirdParty.cloudinary.name,
+    api_key: envConfig().thirdParty.cloudinary.key,
+    api_secret: envConfig().thirdParty.cloudinary.secret
 }
