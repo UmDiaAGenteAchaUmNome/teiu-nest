@@ -87,7 +87,7 @@ export class SaveSlideValidation {
         if (!this.slide.bgImage.title)
             throw new BadRequestException('Título da imagem de fundo do slide não pode ser vazio')
 
-        const matchingImages = await this.imageRepository.findBy({ title: this.slide.bgImage.title })
+        const matchingImages = await this.imageRepository.findBy({ title: `${this.slide.title}_${this.slide.bgImage.title}` })
 
         if (matchingImages.length > 0) {
             if (!this.slide.bgImage.id) {

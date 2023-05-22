@@ -7,10 +7,11 @@ import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.
 import { SaveSlideValidation } from 'src/validations/save-slide.validation';
 import { SlideController } from './slide.controller';
 import { SlideService } from './slide.service';
+import { ImageService } from '../image/image.service';
 
 @Module({
   controllers: [SlideController],
-  providers: [SlideService, CloudinaryService, SaveSlideValidation, Filter],
+  providers: [SlideService, CloudinaryService, SaveSlideValidation, Filter, ImageService],
   imports: [TypeOrmModule.forFeature([Slide, Image])],
   exports: [TypeOrmModule]
 })

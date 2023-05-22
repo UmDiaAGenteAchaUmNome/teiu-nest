@@ -1,12 +1,13 @@
 import { Filter } from '@apicore/nestjs/lib';
 import { SlideDTO } from '@apicore/teiu/lib';
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from "src/entities/image";
 import { Slide } from 'src/entities/slide';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { SaveSlideValidation } from 'src/validations/save-slide.validation';
 import { Repository } from 'typeorm';
+import { ImageService } from '../image/image.service';
 
 @Injectable()
 export class SlideService {
@@ -20,7 +21,8 @@ export class SlideService {
         private readonly imageRepository: Repository<Image>,
         private readonly cloudinaryService: CloudinaryService,
         private readonly saveSlideValidation: SaveSlideValidation,
-        private readonly filter: Filter
+        private readonly filter: Filter,
+        private readonly imageService: ImageService
     ) { }
 
     public async listSlides(filters?: Slide) {
@@ -49,7 +51,17 @@ export class SlideService {
     }
 
     public async deleteSlide(slideId: number) {
+        const slide: Slide = await this.findSlideById(slideId)
+        const slideImages = [slide.image, slide.bgImage]
+
+        if(!slide)
+            throw new BadRequestException("Produto inválido")
+
         await this.slideRepository.delete(slideId)
+        
+        await this.imageService.deleteImage(slide.image)
+        await this.imageService.deleteImage(slide.bgImage)
+
     }
 
     private async saveCloudinaryImages(slide: SlideDTO) {
