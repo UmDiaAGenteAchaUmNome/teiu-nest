@@ -5,6 +5,7 @@ import { AccordionItem } from "src/entities/accordion-item";
 import { Featured } from "src/entities/featured";
 import { GalleryItem } from "src/entities/gallery-item";
 import { Image } from "src/entities/image";
+import { InstagramPost } from "src/entities/instagram-post";
 import { Post } from "src/entities/post";
 import { Product } from "src/entities/product/product";
 import { ProductAmbient } from "src/entities/product/product-ambient";
@@ -41,7 +42,8 @@ import envConfig from "../env/env.config";
                 GalleryItem,
                 AccordionItem,
                 Image,
-                Featured
+                Featured,
+                InstagramPost
             ]
         }),
     ],

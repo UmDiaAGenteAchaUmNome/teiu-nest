@@ -18,6 +18,7 @@ import { UserModule } from './components/user/user.module';
 import { OrmConfig } from './config/db/orm.config';
 import { JwtStrategy } from './helpers/auth/jwt/jwt.strategy';
 import { ImageModule } from './components/image/image.module';
+import { InstagramPostModule } from './components/instagram-post/instagram-post.module';
 import ConfigurationSettings from './config/env/env.config'
 
 @Module({
@@ -42,7 +43,8 @@ import ConfigurationSettings from './config/env/env.config'
     AmbientModule,
     BrandModule,
     HighlightModule,
-    ImageModule
+    ImageModule,
+    InstagramPostModule
   ],
   providers: [JwtStrategy]
 })
