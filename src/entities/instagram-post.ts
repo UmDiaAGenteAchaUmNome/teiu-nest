@@ -1,16 +1,23 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "./core/timestamps";
+import { Image } from "./image";
 
+@Entity()
 export class InstagramPost extends Timestamps {
 
     @PrimaryGeneratedColumn()
     @ApiProperty()
     id?: number
 
-    @Column()
-    @ApiProperty()
-    postThumb?: string
+    @OneToOne(() => Image, {
+        cascade: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    })
+    @JoinColumn()
+    // @ApiProperty()
+    image?: Image
 
     @Column()
     @ApiProperty()
