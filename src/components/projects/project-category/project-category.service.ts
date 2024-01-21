@@ -7,6 +7,8 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class ProjectCategoryService {
 
+    private readonly relations: string[] = ['projects', 'language', 'language.flagImage']
+
     constructor(
         @InjectRepository(ProjectCategory)
         private readonly repository: Repository<ProjectCategory>,
@@ -16,14 +18,14 @@ export class ProjectCategoryService {
     public async search(filters?: ProjectCategory) {
         return await this.repository.find({
             where: this.filter.build(filters),
-            relations: ['projects']
+            relations: this.relations
         })
     }
 
     public async findById(id: number) {
         return await this.repository.findOne({
             where: { id },
-            relations: ['projects']
+            relations: this.relations
         })
     }
 
