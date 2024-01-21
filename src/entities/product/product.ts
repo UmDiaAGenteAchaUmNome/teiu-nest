@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "../core/timestamps";
+import { Language } from "../language";
 import { ProductAmbient } from "./product-ambient";
 import { ProductBrand } from "./product-brand";
 import { ProductCategory } from "./product-category";
@@ -38,5 +39,8 @@ export class Product extends Timestamps {
         onUpdate: 'CASCADE'
     })
     details?: ProductDetail[]
+
+    @ManyToOne(() => Language, language => language.products)
+    language?: Language
 
 }

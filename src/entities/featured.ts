@@ -2,6 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "./core/timestamps";
 import { Image } from "./image";
+import { Language } from "./language";
 import { ProductCategory } from "./product/product-category";
 
 @Entity()
@@ -25,6 +26,8 @@ export class Featured extends Timestamps {
     description?: string
 
     @ManyToOne(() => ProductCategory, (category) => category.products)
-    // @ApiProperty()
     category?: ProductCategory
+
+    @ManyToOne(() => Language, language => language.featuredProducts)
+    language?: Language
 }

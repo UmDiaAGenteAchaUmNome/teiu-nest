@@ -1,19 +1,20 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "../core/timestamps";
+import { Language } from "../language";
 import { Project } from "./project";
 
 @Entity()
 export class ProjectCategory extends Timestamps {
 
     @PrimaryGeneratedColumn()
-    // @ApiProperty()
     id?: number
 
     @Column()
-    // @ApiProperty()
     title?: string
 
     @OneToMany(() => Project, (project) => project.projectCategory)
-    // @ApiProperty()
     projects?: Project[]
+
+    @ManyToOne(() => Language, language => language.projectCategories)
+    language?: Language
 }

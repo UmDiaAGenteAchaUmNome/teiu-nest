@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "./core/timestamps";
 import { Image } from "./image";
+import { Language } from "./language";
 
 @Entity()
 export class InstagramPost extends Timestamps {
@@ -26,4 +27,7 @@ export class InstagramPost extends Timestamps {
     @Column()
     @ApiProperty()
     isActive?: boolean
+
+    @ManyToOne(() => Language, language => language.instagramPosts)
+    language?: Language
 }

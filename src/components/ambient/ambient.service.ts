@@ -1,18 +1,21 @@
-import { Filter } from '@apicore/nestjs/lib';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductAmbient } from 'src/entities/product/product-ambient';
+import { Filter } from 'src/helpers/filter/filter';
 import { Repository } from 'typeorm';
+import { LanguageService } from '../language/language.service';
 
 @Injectable()
 export class AmbientService {
 
-    private readonly relations: string[] = ['products', 'products.details', 'products.details.image']
+    private readonly relations: string[] = ['language', 'language.flagImage', 'products', 'products.details', 'products.details.image']
+    private readonly logger = new Logger(AmbientService.name)
 
     constructor(
         @InjectRepository(ProductAmbient)
         private readonly repository: Repository<ProductAmbient>,
-        private readonly filter: Filter
+        private readonly filter: Filter,
+        private readonly languageService: LanguageService
     ) { }
 
     public async search(filters?: ProductAmbient) {

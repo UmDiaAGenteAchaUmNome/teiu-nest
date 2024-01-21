@@ -19,6 +19,7 @@ import { OrmConfig } from './config/db/orm.config';
 import { JwtStrategy } from './helpers/auth/jwt/jwt.strategy';
 import { ImageModule } from './components/image/image.module';
 import { InstagramPostModule } from './components/instagram-post/instagram-post.module';
+import { LanguageModule } from './components/language/language.module';
 import ConfigurationSettings from './config/env/env.config'
 
 @Module({
@@ -44,7 +45,8 @@ import ConfigurationSettings from './config/env/env.config'
     BrandModule,
     HighlightModule,
     ImageModule,
-    InstagramPostModule
+    InstagramPostModule,
+    LanguageModule
   ],
   providers: [JwtStrategy]
 })

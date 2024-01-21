@@ -1,18 +1,20 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Timestamps } from "../core/timestamps"
+import { Language } from "../language"
 import { Product } from "./product"
 
 @Entity()
 export class ProductAmbient extends Timestamps {
     @PrimaryGeneratedColumn()
-    // @ApiProperty()
     id?: number
 
-    // @ApiProperty()
     @Column()
     title?: string
 
     @OneToMany(() => Product, (product) => product.ambient)
-    // @ApiProperty()
     products?: Product[]
+
+    @ManyToOne(() => Language, language => language.productAmbients)
+    @JoinColumn()
+    language?: Language
 }

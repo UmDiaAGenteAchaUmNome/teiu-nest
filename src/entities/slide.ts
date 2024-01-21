@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger/dist"
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm"
 import { Timestamps } from "./core/timestamps"
 import { Image } from "./image"
+import { Language } from "./language"
 
 @Entity()
 export class Slide extends Timestamps {
@@ -42,7 +43,7 @@ export class Slide extends Timestamps {
     @ApiProperty()
     btnBgColor?: string
 
-    @OneToOne(() => Image, {onDelete: 'CASCADE'})
+    @OneToOne(() => Image, { onDelete: 'CASCADE' })
     @JoinColumn()
     @ApiProperty()
     image?: Image
@@ -63,4 +64,7 @@ export class Slide extends Timestamps {
     @Column()
     @ApiProperty()
     altDescription?: string
+
+    @ManyToOne(() => Language, language => language.slides)
+    language?: Language
 }   
