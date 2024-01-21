@@ -20,6 +20,11 @@ export class LanguageController {
         return await this.languageService.findLanguageById(languageId)
     }
 
+    @Get('/portuguese')
+    public async getPortugueseLanguage() {
+        return await this.languageService.getPorgueseLanguage()
+    }
+
     @Post()
     public async saveLanguage(@Body() language?: LanguageDTO) {
         return await this.languageService.saveLanguage(language)

@@ -1,7 +1,7 @@
-import { Filter } from '@apicore/nestjs/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProjectCategory } from 'src/entities/project/project-category';
+import { Filter } from 'src/helpers/filter/filter';
 import { Repository } from 'typeorm';
 
 @Injectable()

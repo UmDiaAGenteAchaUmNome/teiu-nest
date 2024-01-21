@@ -17,6 +17,14 @@ export class Filter {
                         const languageId = filters[attr]
                         filters[attr] = { id: languageId }
                     }
+
+                    if (attr === 'languageId') {
+                        const languageId = filters[attr]
+
+                        delete filters[attr]
+
+                        filters.language = { id: languageId }
+                    }
                 }
             })
 
