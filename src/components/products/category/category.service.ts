@@ -1,8 +1,8 @@
+import { Filter } from '@apicore/nestjs/lib/helpers/index';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LanguageService } from 'src/components/language/language.service';
 import { ProductCategory } from 'src/entities/product/product-category';
-import { Filter } from 'src/helpers/filter/filter';
 import { SaveCategoryValidation } from 'src/validations/save-category.validation';
 import { Repository } from 'typeorm';
 
@@ -21,8 +21,11 @@ export class CategoryService {
     ) { }
 
     public async search(filters?: ProductCategory) {
+        const processedFilters = this.filter.build(filters)
+        this.logger.debug(`Filtros recebidos: ${JSON.stringify(processedFilters)}`)
+
         return await this.repository.find({
-            where: this.filter.build(filters),
+            where: processedFilters,
             relations: this.relations
         })
     }

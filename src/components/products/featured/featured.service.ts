@@ -1,4 +1,4 @@
-import { Filter } from '@apicore/nestjs/lib';
+import { Filter } from '@apicore/nestjs/lib/helpers/index';
 import { FeaturedDTO } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -15,7 +15,7 @@ export class FeaturedService {
     constructor(
         @InjectRepository(Featured)
         private readonly repository: Repository<Featured>,
-        
+
         @InjectRepository(Image)
         private readonly imageRepository: Repository<Image>,
         private readonly filter: Filter,

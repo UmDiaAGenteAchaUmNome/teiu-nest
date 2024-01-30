@@ -1,4 +1,4 @@
-import { Filter } from '@apicore/nestjs/lib';
+import { Filter } from '@apicore/nestjs/lib/helpers/index';
 import { GalleryItemDTO } from '@apicore/teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

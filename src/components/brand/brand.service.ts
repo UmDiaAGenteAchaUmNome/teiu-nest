@@ -1,4 +1,4 @@
-import { Filter } from '@apicore/nestjs/lib';
+import { Filter } from '@apicore/nestjs/lib/helpers/index';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductBrand } from 'src/entities/product/product-brand';
@@ -6,6 +6,8 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class BrandService {
+
+    private readonly relations: string[] = ['language', 'language.flagImage', 'products', 'products.details', 'products.details.image']
 
     constructor(
         @InjectRepository(ProductBrand)
@@ -16,14 +18,14 @@ export class BrandService {
     public async search(filters?: ProductBrand) {
         return await this.repository.find({
             where: this.filter.build(filters),
-            relations: ['products', 'products.details', 'products.details.image']
+            relations: this.relations
         })
     }
 
     public async findById(id: number) {
         return await this.repository.findOne({
             where: { id },
-            relations: ['products', 'products.details', 'products.details.image']
+            relations: this.relations
         })
     }
 

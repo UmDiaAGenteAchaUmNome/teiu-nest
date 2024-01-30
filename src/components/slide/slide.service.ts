@@ -1,4 +1,4 @@
-import { Filter } from '@apicore/nestjs/lib';
+import { Filter } from '@apicore/nestjs/lib/helpers/index';
 import { SlideDTO } from '@apicore/teiu/lib';
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -54,11 +54,11 @@ export class SlideService {
         const slide: Slide = await this.findSlideById(slideId)
         const slideImages = [slide.image, slide.bgImage]
 
-        if(!slide)
+        if (!slide)
             throw new BadRequestException("Produto inválido")
 
         await this.slideRepository.delete(slideId)
-        
+
         await this.imageService.deleteImage(slide.image)
         await this.imageService.deleteImage(slide.bgImage)
 
