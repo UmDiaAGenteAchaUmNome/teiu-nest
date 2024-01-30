@@ -40,7 +40,6 @@ export class ProductService {
         }
 
         const processedFilters = this.checkFilters(queryParams)
-        this.logger.debug(`Filtros processados: ${JSON.stringify(processedFilters)}`)
 
         return await this.productRepository.find({
             where: processedFilters,
@@ -62,7 +61,7 @@ export class ProductService {
 
     public async saveProduct(product: ProductDTO) {
         product.details = await this.uploadCloudinaryImages(product)
-        console.log((product as Product).details)
+
         product.altDescription = ""
         await this.productRepository.save(product as Product)
 
