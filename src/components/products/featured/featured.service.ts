@@ -10,7 +10,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class FeaturedService {
 
-    private readonly relations: string[] = ['image', 'category']
+    private readonly relations: string[] = ['language', 'language.flagImage', 'image', 'category']
 
     constructor(
         @InjectRepository(Featured)
