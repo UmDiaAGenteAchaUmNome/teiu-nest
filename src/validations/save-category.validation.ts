@@ -1,4 +1,4 @@
-import { ProductCategoryDTO } from "@apicore/teiu/lib";
+import { ProductCategoryDTO } from "@apidevteam/core-teiu/lib";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ProductCategory } from "src/entities/product/product-category";

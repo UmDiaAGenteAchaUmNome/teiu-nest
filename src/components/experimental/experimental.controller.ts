@@ -1,4 +1,4 @@
-import { CloudinaryImage } from '@apicore/teiu/lib/third-party';
+import { CloudinaryImage } from '@apidevteam/core-teiu/lib/third-party';
 import { HttpService } from '@nestjs/axios';
 import { Body, Controller, Get, Headers, Param, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';

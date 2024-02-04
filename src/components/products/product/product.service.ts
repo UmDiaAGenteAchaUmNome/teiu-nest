@@ -1,5 +1,5 @@
-import { Filter } from '@apicore/nestjs/lib/helpers/index';
-import { ProductDTO } from '@apicore/teiu/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
+import { ProductDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from 'src/entities/image';

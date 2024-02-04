@@ -1,5 +1,5 @@
 
-import { ProductDTO } from '@apicore/teiu/lib';
+import { ProductDTO } from '@apidevteam/core-teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { Product } from 'src/entities/product/product';

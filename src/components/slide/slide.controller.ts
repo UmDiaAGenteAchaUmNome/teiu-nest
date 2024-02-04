@@ -1,4 +1,4 @@
-import { SlideDTO } from '@apicore/teiu/lib';
+import { SlideDTO } from '@apidevteam/core-teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { Slide } from 'src/entities/slide';

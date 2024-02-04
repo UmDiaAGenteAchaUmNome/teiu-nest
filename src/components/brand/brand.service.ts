@@ -1,4 +1,4 @@
-import { Filter } from '@apicore/nestjs/lib/helpers/index';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductBrand } from 'src/entities/product/product-brand';

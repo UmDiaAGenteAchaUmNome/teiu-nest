@@ -1,5 +1,5 @@
-import { Filter } from '@apicore/nestjs/lib/helpers/index';
-import { GalleryItemDTO } from '@apicore/teiu/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
+import { GalleryItemDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GalleryItem } from 'src/entities/gallery-item';

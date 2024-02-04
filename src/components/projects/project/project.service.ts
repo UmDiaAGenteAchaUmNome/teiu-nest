@@ -1,5 +1,5 @@
-import { Filter } from '@apicore/nestjs/lib/helpers/index';
-import { ProjectDTO } from '@apicore/teiu/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
+import { ProjectDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from 'src/entities/project/project';

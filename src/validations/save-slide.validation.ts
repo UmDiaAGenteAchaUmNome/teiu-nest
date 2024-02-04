@@ -1,4 +1,4 @@
-import { SlideDTO } from "@apicore/teiu/lib";
+import { SlideDTO } from "@apidevteam/core-teiu/lib";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Image } from "src/entities/image";

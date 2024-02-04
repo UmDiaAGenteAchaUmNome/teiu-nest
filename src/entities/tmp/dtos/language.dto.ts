@@ -1,4 +1,4 @@
-import { ImageDTO } from "@apicore/teiu/lib"
+import { ImageDTO } from "@apidevteam/core-teiu/lib"
 
 export class LanguageDTO {
     id?: number

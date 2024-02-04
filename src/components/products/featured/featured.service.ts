@@ -1,5 +1,5 @@
-import { Filter } from '@apicore/nestjs/lib/helpers/index';
-import { FeaturedDTO } from '@apicore/teiu/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
+import { FeaturedDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Featured } from 'src/entities/featured';

@@ -1,4 +1,4 @@
-import { Filter } from '@apicore/nestjs/lib/helpers/index';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AccordionItem } from 'src/entities/accordion-item';

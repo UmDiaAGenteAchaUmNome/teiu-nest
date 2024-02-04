@@ -1,5 +1,5 @@
-import { Filter } from '@apicore/nestjs/lib/helpers/index';
-import { SlideDTO } from '@apicore/teiu/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
+import { SlideDTO } from '@apidevteam/core-teiu/lib';
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from "src/entities/image";

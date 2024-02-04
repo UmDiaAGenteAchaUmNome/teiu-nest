@@ -1,4 +1,4 @@
-import { ImageDTO } from '@apicore/teiu/lib';
+import { ImageDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from 'src/entities/image';
@@ -12,7 +12,7 @@ export class ImageService {
         @InjectRepository(Image)
         private readonly imageRepository: Repository<Image>,
         private readonly cloudinaryService: CloudinaryService
-    ) {}
+    ) { }
 
     public async deleteImage(image: ImageDTO) {
         try {
@@ -20,7 +20,7 @@ export class ImageService {
             console.log(cloudinaryDestroyExecution)
 
             await this.imageRepository.delete(image.id)
-        } catch(error) {
+        } catch (error) {
             console.error(error)
             console.log("do something...")
         }

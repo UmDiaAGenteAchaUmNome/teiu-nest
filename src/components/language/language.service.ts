@@ -1,4 +1,4 @@
-import { Filter } from '@apicore/nestjs/lib/helpers/index';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from 'src/entities/image';
