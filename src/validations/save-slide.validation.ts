@@ -116,13 +116,10 @@ export class SaveSlideValidation {
 
         if (matchingImages.length > 0) {
             if (!this.slide.image.id) {
-                console.log('id')
                 throw new BadRequestException('Não é possível cadastrar a mesma imagem mais de uma vez')
             }
 
             matchingImages.forEach(matchingImage => {
-                console.log('loop')
-
                 if (matchingImage.id != this.slide.image.id)
                     throw new BadRequestException('Não é possível cadastrar a mesma imagem mais de uma vez')
             })

@@ -14,7 +14,7 @@ export class SlideService {
 
     private readonly logger = new Logger(SlideService.name)
 
-    private readonly relations: string[] = ['image', 'bgImage']
+    private readonly relations: string[] = ['language', 'language.flagImage', 'image', 'bgImage']
 
     constructor(
         @InjectRepository(Slide)
@@ -35,7 +35,7 @@ export class SlideService {
     }
 
     public async findSlideById(slideId: number) {
-        return await this.slideRepository.findOne({ where: { id: slideId }, relations: ['image', 'bgImage'] })
+        return await this.slideRepository.findOne({ where: { id: slideId }, relations: this.relations })
     }
 
     public async saveSlide(slide: SlideDTO) {
