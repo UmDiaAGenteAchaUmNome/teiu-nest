@@ -61,14 +61,14 @@ export class SlideService {
 
     private async saveCloudinaryImages(slide: SlideDTO) {
         if (slide.image.base64src) {
-            slide.image.title = slide.title.concat(`_${slide.image.title}`)
-            slide.image = await this.cloudinaryService.uploadImageDto(slide.image, `/slides/${slide.title}`)
+            slide.image.title = slide.title.concat(`_${slide.image.title}_${slide.language.acronym.toLowerCase()}`)
+            slide.image = await this.cloudinaryService.uploadImageDto(slide.image, `/slides/${slide.title}_${slide.language.acronym.toLowerCase()}`)
             await this.imageRepository.save(slide.image)
         }
 
         if (slide.bgImage.base64src) {
-            slide.bgImage.title = slide.title.concat(`_${slide.bgImage.title}`)
-            slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `/slides/${slide.title}`)
+            slide.bgImage.title = slide.title.concat(`_${slide.bgImage.title}_${slide.language.acronym.toLowerCase()}`)
+            slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `/slides/${slide.title}_${slide.language.acronym.toLowerCase()}`)
             await this.imageRepository.save(slide.bgImage)
         }
 
