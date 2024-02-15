@@ -2,6 +2,7 @@ import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductBrand } from 'src/entities/product/product-brand';
+import { SaveBrandValidation } from 'src/validations/save-brand.validation';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -12,7 +13,8 @@ export class BrandService {
     constructor(
         @InjectRepository(ProductBrand)
         private readonly repository: Repository<ProductBrand>,
-        private readonly filter: Filter
+        private readonly filter: Filter,
+        private readonly saveBrandValidation: SaveBrandValidation
     ) { }
 
     public async search(filters?: ProductBrand) {
@@ -30,6 +32,8 @@ export class BrandService {
     }
 
     public async save(brand: ProductBrand) {
+        await this.saveBrandValidation.validate(brand)
+
         return await this.repository.save(brand)
     }
 

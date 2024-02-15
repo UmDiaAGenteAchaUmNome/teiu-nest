@@ -7,6 +7,7 @@ import { Slide } from 'src/entities/slide';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { SaveSlideValidation } from 'src/validations/save-slide.validation';
 import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 import { ImageService } from '../image/image.service';
 
 @Injectable()
@@ -60,15 +61,17 @@ export class SlideService {
     }
 
     private async saveCloudinaryImages(slide: SlideDTO) {
+        const slideUuid = uuid();
+
         if (slide.image.base64src) {
-            slide.image.title = slide.title.concat(`_${slide.image.title}_${slide.language.acronym.toLowerCase()}`)
-            slide.image = await this.cloudinaryService.uploadImageDto(slide.image, `/slides/${slide.title}_${slide.language.acronym.toLowerCase()}`)
+            slide.image.title = `${slide.bgImage.title}_${slideUuid}}`
+            slide.image = await this.cloudinaryService.uploadImageDto(slide.image, `/slides/${slide.title}}`)
             await this.imageRepository.save(slide.image)
         }
 
         if (slide.bgImage.base64src) {
-            slide.bgImage.title = slide.title.concat(`_${slide.bgImage.title}_${slide.language.acronym.toLowerCase()}`)
-            slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `/slides/${slide.title}_${slide.language.acronym.toLowerCase()}`)
+            slide.bgImage.title = `${slide.image.title}_${slideUuid}}`
+            slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `/slides/${slide.title}}`)
             await this.imageRepository.save(slide.bgImage)
         }
 

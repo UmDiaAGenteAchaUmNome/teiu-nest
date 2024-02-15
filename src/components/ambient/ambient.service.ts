@@ -2,6 +2,7 @@ import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductAmbient } from 'src/entities/product/product-ambient';
+import { SaveAmbientValidation } from 'src/validations/save-ambient.validation';
 import { Repository } from 'typeorm';
 import { LanguageService } from '../language/language.service';
 
@@ -15,7 +16,8 @@ export class AmbientService {
         @InjectRepository(ProductAmbient)
         private readonly repository: Repository<ProductAmbient>,
         private readonly filter: Filter,
-        private readonly languageService: LanguageService
+        private readonly languageService: LanguageService,
+        private readonly saveAmbientValidation: SaveAmbientValidation
     ) { }
 
     public async search(filters?: ProductAmbient) {
@@ -33,6 +35,8 @@ export class AmbientService {
     }
 
     public async save(ambient: ProductAmbient) {
+        await this.saveAmbientValidation.validate(ambient)
+
         return await this.repository.save(ambient)
     }
 
