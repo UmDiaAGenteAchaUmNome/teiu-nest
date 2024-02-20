@@ -24,7 +24,7 @@ export class InstagramPost extends Timestamps {
     @ApiProperty()
     postLink?: string
 
-    @Column()
+    @Column({ default: true })
     @ApiProperty()
     isActive?: boolean
 
