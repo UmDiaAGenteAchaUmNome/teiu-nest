@@ -75,7 +75,11 @@ export class LanguageService {
         }
     }
 
-    public async saveLanguageStaticTexts(languageTexts: any) {
+    public async getLanguageTexts(languageIdentifier: string) {
+        return languageIdentifier.toLowerCase() === 'br' ? br : us
+    }
+
+    public async saveLanguageStaticTexts(languageTexts: any): Promise<void> {
         const fileReader = require('fs')
 
         fileReader.writeFile('src/assets/languages/br.json', JSON.stringify(languageTexts.br), (err) => {
