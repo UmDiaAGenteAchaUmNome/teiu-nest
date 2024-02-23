@@ -75,6 +75,18 @@ export class LanguageService {
         }
     }
 
+    public async saveLanguageStaticTexts(languageTexts: any) {
+        const fileReader = require('fs')
+
+        fileReader.writeFile('src/assets/languages/br.json', JSON.stringify(languageTexts.br), (err) => {
+            console.error(err)
+        })
+
+        fileReader.writeFile('src/assets/languages/us.json', JSON.stringify(languageTexts.us), (err) => {
+            console.error(err)
+        })
+    }
+
     private async saveCloudinaryImage(language: LanguageDTO) {
         if (language.flagImage && language.flagImage.base64src) {
             language.flagImage = await this.cloudinaryRepository.uploadImageDto(language.flagImage, `/flags`)

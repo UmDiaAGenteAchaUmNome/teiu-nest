@@ -20,6 +20,11 @@ export class LanguageController {
         return await this.languageService.getLanguageStaticTexts()
     }
 
+    @Post("/static")
+    public async saveLanguageTexts(@Body() languageTexts: any) {
+        return await this.languageService.saveLanguageStaticTexts(languageTexts)
+    }
+
     @Get('/:id')
     public async findLanguageById(@Param('id') languageId) {
         return await this.languageService.findLanguageById(languageId)
