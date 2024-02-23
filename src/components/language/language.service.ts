@@ -1,5 +1,5 @@
 import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from 'src/entities/image';
 import { Language } from 'src/entities/language';
@@ -8,8 +8,13 @@ import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.
 import { Repository } from 'typeorm';
 import { ImageService } from '../image/image.service';
 
+import br from 'src/assets/languages/br.json';
+import us from 'src/assets/languages/us.json';
+
 @Injectable()
 export class LanguageService {
+
+    private readonly logger = new Logger(LanguageService.name)
 
     relations: string[] = ['flagImage']
 
@@ -61,6 +66,13 @@ export class LanguageService {
 
         if (language.flagImage)
             await this.imageService.deleteImage(language.flagImage)
+    }
+
+    public async getLanguageStaticTexts() {
+        return {
+            br: br,
+            us: us
+        }
     }
 
     private async saveCloudinaryImage(language: LanguageDTO) {

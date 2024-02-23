@@ -15,6 +15,11 @@ export class LanguageController {
         return await this.languageService.listLanguages(filters)
     }
 
+    @Get("/static")
+    public async getLanguageTexts() {
+        return await this.languageService.getLanguageStaticTexts()
+    }
+
     @Get('/:id')
     public async findLanguageById(@Param('id') languageId) {
         return await this.languageService.findLanguageById(languageId)
