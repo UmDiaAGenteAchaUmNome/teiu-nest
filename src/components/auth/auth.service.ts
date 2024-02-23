@@ -1,4 +1,4 @@
-import { LoginResponseDTO, UserDTO } from '@apicore/teiu/lib';
+import { LoginResponseDTO, UserDTO } from '@apidevteam/core-teiu/lib';
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user';

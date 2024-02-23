@@ -1,4 +1,4 @@
-import { Filter } from '@apicore/nestjs/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user';

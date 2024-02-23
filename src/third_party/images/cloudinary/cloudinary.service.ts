@@ -1,4 +1,4 @@
-import { ImageDTO } from '@apicore/teiu/lib';
+import { ImageDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable, Logger } from '@nestjs/common';
 import { TransformationOptions, UploadApiResponse, v2 as cloudinary } from 'cloudinary';
 import envConfig from 'src/config/env/env.config';
@@ -39,7 +39,7 @@ export class CloudinaryService {
 
             let deleteResponse = await cloudinary.uploader.destroy(image.publicId)
             return deleteResponse
-        } catch(error) {
+        } catch (error) {
             console.error(error)
             throw new Error(`Erro ao apagar imagem: ${error.code}`)
         }

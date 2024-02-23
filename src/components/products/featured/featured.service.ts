@@ -1,5 +1,5 @@
-import { Filter } from '@apicore/nestjs/lib';
-import { FeaturedDTO } from '@apicore/teiu/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
+import { FeaturedDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Featured } from 'src/entities/featured';
@@ -10,12 +10,12 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class FeaturedService {
 
-    private readonly relations: string[] = ['image', 'category']
+    private readonly relations: string[] = ['language', 'language.flagImage', 'image', 'category']
 
     constructor(
         @InjectRepository(Featured)
         private readonly repository: Repository<Featured>,
-        
+
         @InjectRepository(Image)
         private readonly imageRepository: Repository<Image>,
         private readonly filter: Filter,

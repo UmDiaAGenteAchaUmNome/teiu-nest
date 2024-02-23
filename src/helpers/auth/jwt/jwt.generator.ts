@@ -1,4 +1,4 @@
-import { UserDTO } from "@apicore/teiu/lib"
+import { UserDTO } from "@apidevteam/core-teiu/lib"
 import { Injectable } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 

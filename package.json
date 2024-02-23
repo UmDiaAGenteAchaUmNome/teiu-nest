@@ -23,8 +23,8 @@
     "nest-component": "nest generate module components/%npm_config_name% && nest generate controller components/%npm_config_name% && nest generate service components/%npm_config_name%"
   },
   "dependencies": {
-    "@apicore/nestjs": "^0.0.1",
-    "@apicore/teiu": "^6.0.4",
+    "@apidevteam/core-nestjs": "^1.0.0",
+    "@apidevteam/core-teiu": "^1.2.0",
     "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
@@ -43,7 +43,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.10"
+    "typeorm": "^0.3.10",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

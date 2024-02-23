@@ -1,4 +1,4 @@
-import { SlideDTO } from "@apicore/teiu/lib";
+import { SlideDTO } from "@apidevteam/core-teiu/lib";
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Image } from "src/entities/image";
@@ -86,20 +86,6 @@ export class SaveSlideValidation {
 
         if (!this.slide.bgImage.title)
             throw new BadRequestException('Título da imagem de fundo do slide não pode ser vazio')
-
-        const matchingImages = await this.imageRepository.findBy({ title: `${this.slide.title}_${this.slide.bgImage.title}` })
-
-        if (matchingImages.length > 0) {
-            if (!this.slide.bgImage.id) {
-                throw new BadRequestException('Não é possível cadastrar a mesma imagem mais de uma vez')
-            }
-
-            matchingImages.forEach(matchingImage => {
-
-                if (matchingImage.id != this.slide.bgImage.id)
-                    throw new BadRequestException('Não é possível cadastrar a mesma imagem mais de uma vez')
-            })
-        }
     }
 
     private async validateImage() {
@@ -111,22 +97,6 @@ export class SaveSlideValidation {
 
         if (!this.slide.image.title)
             throw new BadRequestException('Título da imagem de fundo do slide não pode ser vazio')
-
-        const matchingImages = await this.imageRepository.findBy({ title: `${this.slide.title}_${this.slide.image.title}` })
-
-        if (matchingImages.length > 0) {
-            if (!this.slide.image.id) {
-                console.log('id')
-                throw new BadRequestException('Não é possível cadastrar a mesma imagem mais de uma vez')
-            }
-
-            matchingImages.forEach(matchingImage => {
-                console.log('loop')
-
-                if (matchingImage.id != this.slide.image.id)
-                    throw new BadRequestException('Não é possível cadastrar a mesma imagem mais de uma vez')
-            })
-        }
     }
 
 }

@@ -1,5 +1,5 @@
-import { Filter } from '@apicore/nestjs/lib';
-import { SlideDTO } from '@apicore/teiu/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
+import { SlideDTO } from '@apidevteam/core-teiu/lib';
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from "src/entities/image";
@@ -7,12 +7,15 @@ import { Slide } from 'src/entities/slide';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 import { SaveSlideValidation } from 'src/validations/save-slide.validation';
 import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 import { ImageService } from '../image/image.service';
 
 @Injectable()
 export class SlideService {
 
     private readonly logger = new Logger(SlideService.name)
+
+    private readonly relations: string[] = ['language', 'language.flagImage', 'image', 'bgImage']
 
     constructor(
         @InjectRepository(Slide)
@@ -27,20 +30,13 @@ export class SlideService {
 
     public async listSlides(filters?: Slide) {
         return await this.slideRepository.find({
-            relations: ['image', 'bgImage'],
+            relations: this.relations,
             where: this.filter.build(filters)
         })
     }
 
-    public async listActiveSlides() {
-        return await this.slideRepository.find({
-            relations: ['image', 'bgImage'],
-            where: { active: true }
-        })
-    }
-
     public async findSlideById(slideId: number) {
-        return await this.slideRepository.findOne({ where: { id: slideId }, relations: ['image', 'bgImage'] })
+        return await this.slideRepository.findOne({ where: { id: slideId }, relations: this.relations })
     }
 
     public async saveSlide(slide: SlideDTO) {
@@ -54,26 +50,28 @@ export class SlideService {
         const slide: Slide = await this.findSlideById(slideId)
         const slideImages = [slide.image, slide.bgImage]
 
-        if(!slide)
+        if (!slide)
             throw new BadRequestException("Produto inválido")
 
         await this.slideRepository.delete(slideId)
-        
+
         await this.imageService.deleteImage(slide.image)
         await this.imageService.deleteImage(slide.bgImage)
 
     }
 
     private async saveCloudinaryImages(slide: SlideDTO) {
+        const slideUuid = uuid();
+
         if (slide.image.base64src) {
-            slide.image.title = slide.title.concat(`_${slide.image.title}`)
-            slide.image = await this.cloudinaryService.uploadImageDto(slide.image, `/slides/${slide.title}`)
+            slide.image.title = `${slide.bgImage.title}_${slideUuid}}`
+            slide.image = await this.cloudinaryService.uploadImageDto(slide.image, `/slides/${slide.title}}`)
             await this.imageRepository.save(slide.image)
         }
 
         if (slide.bgImage.base64src) {
-            slide.bgImage.title = slide.title.concat(`_${slide.bgImage.title}`)
-            slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `/slides/${slide.title}`)
+            slide.bgImage.title = `${slide.image.title}_${slideUuid}}`
+            slide.bgImage = await this.cloudinaryService.uploadImageDto(slide.bgImage, `/slides/${slide.title}}`)
             await this.imageRepository.save(slide.bgImage)
         }
 

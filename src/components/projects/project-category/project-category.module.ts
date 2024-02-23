@@ -1,4 +1,4 @@
-import { Filter } from '@apicore/nestjs/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProjectCategory } from 'src/entities/project/project-category';

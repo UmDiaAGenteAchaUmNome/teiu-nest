@@ -1,5 +1,5 @@
-import { Filter } from '@apicore/nestjs/lib';
-import { ProjectDTO } from '@apicore/teiu/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
+import { ProjectDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from 'src/entities/project/project';
@@ -9,6 +9,8 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class ProjectService {
 
+    private readonly relations: string[] = ["language", "language.flagImage", "image", "user"]
+
     constructor(
         @InjectRepository(Project)
         private readonly repository: Repository<Project>,
@@ -17,11 +19,11 @@ export class ProjectService {
     ) { }
 
     public async search(filters?: Project) {
-        return await this.repository.find({ where: this.filter.build(filters), relations: ["image", "user"] })
+        return await this.repository.find({ where: this.filter.build(filters), relations: this.relations })
     }
 
     public async findById(id: number) {
-        return await this.repository.findOne({ where: { id }, relations: ["image", "user"] })
+        return await this.repository.findOne({ where: { id }, relations: this.relations })
     }
 
     public async save(project: ProjectDTO) {

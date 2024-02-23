@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamps } from "./core/timestamps";
+import { Language } from "./language";
 
 @Entity()
 export class AccordionItem extends Timestamps {
@@ -19,4 +20,7 @@ export class AccordionItem extends Timestamps {
     @Column()
     @ApiProperty()
     description: string;
+
+    @ManyToOne(() => Language, language => language.accordionItems)
+    language?: Language
 };

@@ -1,18 +1,18 @@
-import { Filter } from '@apicore/nestjs/lib';
-import { ProductDTO } from '@apicore/teiu/lib';
+import { Filter } from '@apidevteam/core-nestjs/lib/helpers/index';
+import { ProductDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from 'src/entities/image';
 import { Product } from 'src/entities/product/product';
 import { ProductDetail } from 'src/entities/product/product-detail';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
-import { ILike, In, Repository } from 'typeorm';
+import { ILike, In, Like, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
 
     private readonly logger = new Logger(ProductService.name)
-    private readonly relations: string[] = ["category", "details", "details.image", "brand", "ambient"]
+    private readonly relations: string[] = ["language", "language.flagImage", "category", "details", "details.image", "brand", "ambient"]
 
     constructor(
         @InjectRepository(Product)
@@ -29,15 +29,20 @@ export class ProductService {
     ) { }
 
     public async listProducts(filters?: any) {
+        this.logger.debug(`Filtros recebidos: ${JSON.stringify(filters)}`)
+
         const queryParams = {
             ambient: filters.ambients ? In(filters.ambients.split(',')) : null,
             brand: filters.brands ? In(filters.brands.split(',')) : null,
-            category: filters.categories ? In(filters.categories.split(',')) : null,
-            title: filters.title ? ILike(`%${filters.title}%`) : null
+            category: filters.categories ? In(filters.categories.split(',')) : null || filters.categoryId ? { id: Like(`%${filters.categoryId}%`) } : null,
+            title: filters.title ? ILike(`%${filters.title}%`) : null,
+            language: (filters.language || filters.languageId) ? { id: Like(`%${filters.language || filters.languageId}%`) } : null
         }
 
+        const processedFilters = this.checkFilters(queryParams)
+
         return await this.productRepository.find({
-            where: this.checkFilters(queryParams),
+            where: processedFilters,
             relations: this.relations,
             order: {
                 category: {
@@ -56,7 +61,7 @@ export class ProductService {
 
     public async saveProduct(product: ProductDTO) {
         product.details = await this.uploadCloudinaryImages(product)
-        console.log((product as Product).details)
+
         product.altDescription = ""
         await this.productRepository.save(product as Product)
 
@@ -96,7 +101,8 @@ export class ProductService {
 
     private checkFilters(filters?: any) {
         Object.keys(filters).forEach((attr) => {
-            if (!filters[attr] || !filters[attr].value) {
+            if (!filters[attr]) {
+                this.logger.debug(`Atributo ${attr}. Valor: ${filters[attr]}`)
                 delete filters[attr];
                 return;
             }

@@ -1,4 +1,4 @@
-import { SlideDTO } from '@apicore/teiu/lib';
+import { SlideDTO } from '@apidevteam/core-teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { Slide } from 'src/entities/slide';
@@ -16,11 +16,6 @@ export class SlideController {
     @Get()
     public async listSlides(@Query() filters?: SlideDTO): Promise<Slide[]> {
         return await this.slideService.listSlides(filters)
-    }
-
-    @Get('active')
-    public async listActiveSlides(): Promise<Slide[]> {
-        return await this.slideService.listActiveSlides()
     }
 
     @Get(':id')

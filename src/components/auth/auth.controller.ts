@@ -1,4 +1,4 @@
-import { LoginResponseDTO, UserDTO } from '@apicore/teiu/lib';
+import { LoginResponseDTO, UserDTO } from '@apidevteam/core-teiu/lib';
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { AuthService } from './auth.service';
