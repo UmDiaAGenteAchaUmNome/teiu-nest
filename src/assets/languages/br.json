@@ -69,6 +69,20 @@
             "terceiro-paragrafo": "Antes de tudo, “Doutô Marinho” era um homem de fé. Em seu livro de memórias, escreve:“Agradeço a Deus, por Ele ter me permitido caminhar com dignidade e muita coragem para enfrentar as lutas, que não foram poucas, mas que foram insignificantes diante das bênçãos recebidas”.",
             "quarto-paragrafo": "O “Doutô Marinho” nos deixou valores e ensinamentos que são pilares fundamentais do sucesso da TEIÚ."
         },
+        "detalhes": {
+            "estrutura": {
+                "titulo": "Estrutura",
+                "descriçao": "Investimentos em pesquisa, desenvolvimento e em equipamentos de alta tecnologia garantem a qualidade superior dos nossos produtos."
+            },
+            "distribuiçao": {
+                "titulo": "Distribuição",
+                "descriçao": "Nosso centro de distribuição é um dos maiores e mais modernos do Brasil. Com um sistema de distribuição totalmente informatizado, conseguimos o máximo em eficiência e agilidade nas nossas entregas. Os produtos TEIÚ chegam aos pontos de vendas através de uma frota própria, composta por 50 caminhões, que são conduzidos por motoristas experientes e treinados."
+            },
+            "linha-do-tempo": {
+                "titulo": "Linha do Tempo",
+                "descriçao": "Desde 1957 fazendo parte da sua vida!"
+            }
+        },
         "galeria": {
             "titulo": "Um pouco da",
             "subtitulo": "Nossa Galeria"

@@ -69,6 +69,20 @@
             "terceiro-paragrafo": "Above all, “Doctor Marinho” was a man of faith. In his memoir, he writes: “I thank God for allowing me to walk with dignity and a lot of courage to face the struggles, which were not few, but were insignificant in the face of the blessings received”.",
             "quarto-paragrafo": "The “Doctor Marinho” left us values and teachings that are fundamental pillars of TEIÚ's success."
         },
+        "detalhes": {
+            "estrutura": {
+                "titulo": "Structure",
+                "descriçao": "Investments in research, development and high-tech equipment guarantee the superior quality of our products."
+            },
+            "distribuiçao": {
+                "titulo": "Distribution",
+                "descriçao": "Our distribution center is one of the largest and most modern in Brazil. With a fully computerized distribution system, we achieve maximum efficiency and agility in our deliveries. TEIÚ products arrive at points of sale through its own fleet, made up of 50 trucks, which are driven by experienced and trained drivers."
+            },
+            "linha-do-tempo": {
+                "titulo": "Timeline",
+                "descriçao": "Helping you take care of your home since 1957"
+            }
+        },
         "galeria": {
             "titulo": "A Peek Where",
             "subtitulo": "It All Happens"
