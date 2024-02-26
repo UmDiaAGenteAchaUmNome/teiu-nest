@@ -76,7 +76,14 @@ export class LanguageService {
     }
 
     public async getLanguageTexts(languageIdentifier: string) {
-        return languageIdentifier.toLowerCase() === 'br' ? br : us
+        switch (languageIdentifier) {
+            case 'br':
+                return br
+            case 'us':
+                return us
+            default:
+                throw new BadRequestException("Idioma não encontrado")
+        }
     }
 
     public async saveLanguageStaticTexts(languageTexts: any): Promise<void> {
