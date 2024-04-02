@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ProjectCategory } from 'src/entities/project/project-category';
+import { JwtGuard } from 'src/guards/jwt.guard';
 import { ProjectCategoryService } from './project-category.service';
 
 @Controller('project-category')
@@ -24,11 +25,13 @@ export class ProjectCategoryController {
     }
 
     @Post()
+    @UseGuards(JwtGuard)
     public async saveProjectCategory(@Body() projectCategory: ProjectCategory) {
         return await this.service.save(projectCategory)
     }
 
     @Delete(':id')
+    @UseGuards(JwtGuard)
     public async deleteProjectCategory(id: number) {
         return await this.service.delete(id)
     }

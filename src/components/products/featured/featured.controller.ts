@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Featured } from 'src/entities/featured';
+import { JwtGuard } from 'src/guards/jwt.guard';
 import { FeaturedService } from './featured.service';
 
 @Controller('featured')
@@ -22,16 +23,19 @@ export class FeaturedController {
     }
 
     @Post()
+    @UseGuards(JwtGuard)
     public async saveFeatured(@Body() featuredProduct) {
         return await this.service.save(featuredProduct)
     }
 
     @Put(":id")
+    @UseGuards(JwtGuard)
     public async updateFeatured(@Param("id") id: number, @Body() featuredProduct) {
         return await this.service.update(id, featuredProduct)
     }
 
     @Delete(':id')
+    @UseGuards(JwtGuard)
     public async deleteFeatured(@Param('id') id: number) {
         return await this.service.delete(id)
     }

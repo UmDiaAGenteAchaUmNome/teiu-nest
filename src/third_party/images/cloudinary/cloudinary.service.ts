@@ -28,7 +28,7 @@ export class CloudinaryService {
             }
 
         } catch (error) {
-            console.error(error)
+            this.logger.error(JSON.stringify(error))
             throw new Error(`Erro no upload da imagem: ${error.code}`)
         }
     }
@@ -40,7 +40,7 @@ export class CloudinaryService {
             let deleteResponse = await cloudinary.uploader.destroy(image.publicId)
             return deleteResponse
         } catch (error) {
-            console.error(error)
+            this.logger.error(JSON.stringify(error))
             throw new Error(`Erro ao apagar imagem: ${error.code}`)
         }
     }

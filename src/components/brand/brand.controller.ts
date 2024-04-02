@@ -1,7 +1,8 @@
 import { Controller } from '@nestjs/common';
-import { Body, Delete, Get, Param, Post, Query } from '@nestjs/common/decorators';
+import { Body, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
 import { ProductBrand } from 'src/entities/product/product-brand';
+import { JwtGuard } from 'src/guards/jwt.guard';
 import { BrandService } from './brand.service';
 
 @ApiTags('Brand')
@@ -23,11 +24,13 @@ export class BrandController {
     }
 
     @Post()
+    @UseGuards(JwtGuard)
     public async saveBrand(@Body() brand: ProductBrand) {
         return await this.service.save(brand)
     }
 
     @Delete(':id')
+    @UseGuards(JwtGuard)
     public async deleteBrand(@Param('id') id: number) {
         return await this.service.delete(id)
     }

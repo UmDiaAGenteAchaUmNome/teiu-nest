@@ -29,8 +29,6 @@ export class ProductService {
     ) { }
 
     public async listProducts(filters?: any) {
-        this.logger.debug(`Filtros recebidos: ${JSON.stringify(filters)}`)
-
         const queryParams = {
             ambient: filters.ambients ? In(filters.ambients.split(',')) : null,
             brand: filters.brands ? In(filters.brands.split(',')) : null,

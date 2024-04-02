@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccordionItem } from "src/entities/accordion-item";
+import { Banner } from "src/entities/banner";
 import { Featured } from "src/entities/featured";
 import { GalleryItem } from "src/entities/gallery-item";
 import { Image } from "src/entities/image";
@@ -30,6 +31,9 @@ import envConfig from "../env/env.config";
             database: envConfig().database.schema,
             synchronize: true,
             entities: [
+                AccordionItem,
+                Banner,
+                Featured,
                 Product,
                 ProductDetail,
                 ProductAmbient,
@@ -41,11 +45,9 @@ import envConfig from "../env/env.config";
                 Project,
                 ProjectCategory,
                 GalleryItem,
-                AccordionItem,
                 Image,
-                Featured,
                 InstagramPost,
-                Language
+                Language,
             ]
         }),
     ],

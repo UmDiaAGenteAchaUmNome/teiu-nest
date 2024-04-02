@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { AccordionItem } from "./accordion-item";
+import { Banner } from "./banner";
 import { Timestamps } from "./core/timestamps";
 import { Featured } from "./featured";
 import { Image } from './image';
@@ -69,4 +70,7 @@ export class Language extends Timestamps {
 
     @OneToMany(() => ProjectCategory, projectCategory => projectCategory.language)
     projectCategories?: ProjectCategory[]
+
+    @OneToMany(() => Banner, banner => banner.language)
+    banner?: Banner[]
 }

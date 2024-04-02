@@ -1,12 +1,14 @@
 import { CloudinaryImage } from '@apidevteam/core-teiu/lib/third-party';
 import { HttpService } from '@nestjs/axios';
-import { Body, Controller, Get, Headers, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
+import { JwtGuard } from 'src/guards/jwt.guard';
 import { CryptHelper } from 'src/helpers/auth/crypt.helper';
 import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.service';
 
 @ApiTags('Experimental Routes')
 @Controller('experimental')
+@UseGuards(JwtGuard)
 export class ExperimentalController {
 
     constructor(
