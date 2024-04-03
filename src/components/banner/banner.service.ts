@@ -12,7 +12,7 @@ import { ImageService } from '../image/image.service';
 @Injectable()
 export class BannerService {
 
-    private readonly relations: string[] = ['image', 'language']
+    private readonly relations: string[] = ['image', 'language', 'language.flagImage']
 
     constructor(
         @InjectRepository(Banner)

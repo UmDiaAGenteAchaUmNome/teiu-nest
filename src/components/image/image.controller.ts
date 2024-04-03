@@ -12,10 +12,7 @@ export class ImageController {
 
     @Delete('/cloudinary/:id')
     public async deleteCloudinaryImage(@Param('id') imageId: number) {
-        console.log(imageId)
         const image = await this.imageService.getImageById(imageId)
-
-        console.log(image)
 
         await this.imageService.deleteCloudinaryImage(image)
     }

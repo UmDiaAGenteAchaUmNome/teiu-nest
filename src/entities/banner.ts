@@ -11,16 +11,16 @@ export class Banner {
     @Column()
     title?: string
 
-    @Column()
+    @Column({ nullable: true })
     link?: string
 
-    @Column()
+    @Column({ nullable: true })
     buttonColor?: string
 
-    @Column()
+    @Column({ nullable: true })
     buttonText?: string
 
-    @Column()
+    @Column({ nullable: true })
     buttonTextColor?: string
 
     @Column({ default: true })
