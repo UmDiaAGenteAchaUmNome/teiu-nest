@@ -1,5 +1,5 @@
 import { BannerDTO } from '@apidevteam/core-teiu/lib';
-import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { BannerService } from './banner.service';
@@ -25,6 +25,13 @@ export class BannerController {
     @Post()
     @UseGuards(JwtGuard)
     public async saveSlide(@Body() banner: BannerDTO) {
+        return await this.bannerService.save(banner)
+    }
+
+    @Put(':id')
+    @UseGuards(JwtGuard)
+    public async updateSlide(@Param('id') bannerId: number, @Body() banner: BannerDTO) {
+        banner.id = bannerId
         return await this.bannerService.save(banner)
     }
 
