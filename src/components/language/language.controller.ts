@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Language } from 'src/entities/language';
 import { LanguageDTO } from 'src/entities/tmp/dtos/language.dto';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { LanguageService } from './language.service';
 
+@ApiTags('Language')
 @Controller('language')
 export class LanguageController {
 

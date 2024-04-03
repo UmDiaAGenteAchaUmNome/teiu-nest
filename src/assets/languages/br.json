@@ -1,8 +1,16 @@
 {
     "menu": {
+        "parceiros": {
+            "titulo": "Nossos Parceiros",
+            "subtitulo": "Principais Parcerias",
+            "b2b": "B2B",
+            "catalogo": "Catálogo",
+            "logistica": "Logística",
+            "mapa": "Mapa do Estado"
+        },
         "pagina-inicial": "Página Inicial",
-        "sobre": "Sobre Nós",
-        "produtos": "Nossos Produtos",
+        "sobre": "A Teiú",
+        "produtos": "Produtos",
         "projetos": "Projetos",
         "trabalhe-conosco": "Trabalhe Conosco",
         "contato": "Contato"

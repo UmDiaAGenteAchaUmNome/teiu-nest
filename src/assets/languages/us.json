@@ -1,5 +1,13 @@
 {
     "menu": {
+        "parceiros": {
+            "titulo": "Partnerships",
+            "subtitulo": "Out Partners",
+            "b2b": "B2B",
+            "catalogo": "Catalog",
+            "logistica": "Logistics",
+            "mapa": "Our Reach"
+        },
         "pagina-inicial": "Home",
         "sobre": "About Us",
         "produtos": "Our Products",

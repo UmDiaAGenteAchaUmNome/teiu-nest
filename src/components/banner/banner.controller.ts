@@ -1,8 +1,10 @@
 import { BannerDTO } from '@apidevteam/core-teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { BannerService } from './banner.service';
 
+@ApiTags('Banner')
 @Controller('banner')
 export class BannerController {
 
