@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { InstagramPost } from 'src/entities/instagram-post';
 import { InstagramPostDTO } from 'src/entities/tmp/dtos/instagram-post.dto';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { InstagramPostService } from './instagram-post.service';
 
+@ApiTags("Instagram Posts")
 @Controller('instagram-post')
 export class InstagramPostController {
 

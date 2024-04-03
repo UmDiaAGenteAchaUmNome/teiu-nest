@@ -14,12 +14,26 @@ export class ImageService {
         private readonly cloudinaryService: CloudinaryService
     ) { }
 
+    public async getImageById(imageId: number) {
+        return await this.imageRepository.findOneBy({ id: imageId })
+    }
+
     public async deleteImage(image: ImageDTO) {
         try {
             const cloudinaryDestroyExecution = await this.cloudinaryService.deleteCloudinaryImage(image)
             console.log(cloudinaryDestroyExecution)
 
             await this.imageRepository.delete(image.id)
+        } catch (error) {
+            console.error(error)
+            console.log("do something...")
+        }
+    }
+
+    public async deleteCloudinaryImage(image: ImageDTO) {
+        try {
+            const cloudinaryDestroyExecution = await this.cloudinaryService.deleteCloudinaryImage(image)
+            console.log(cloudinaryDestroyExecution)
         } catch (error) {
             console.error(error)
             console.log("do something...")

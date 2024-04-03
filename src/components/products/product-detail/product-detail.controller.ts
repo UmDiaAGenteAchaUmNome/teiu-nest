@@ -1,7 +1,9 @@
 import { Controller, Delete, Param, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/guards/jwt.guard';
 import { ProductDetailService } from './product-detail.service';
 
+@ApiTags("Product")
 @Controller('product/detail')
 export class ProductDetailController {
 
