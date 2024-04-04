@@ -1,4 +1,5 @@
 import { Filter } from '@apidevteam/core-nestjs/lib';
+import { UpdatePasswordDTO, UpdateUserDTO } from '@apidevteam/core-teiu/lib';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user';
@@ -29,7 +30,12 @@ export class UserService {
         return await this.userRepository.save(user)
     }
 
-    public async updateUser(userId: number, user: User): Promise<User> {
+    public async updateUser(userId: number, user: UpdateUserDTO): Promise<UpdateUserDTO> {
+        await this.userRepository.update(userId, user)
+        return await this.getUserById(userId)
+    }
+
+    public async updateUserPassword(userId: number, user: UpdatePasswordDTO): Promise<UpdateUserDTO> {
         user = await this.generateUserPasswordHash(user)
 
         await this.userRepository.update(userId, user)

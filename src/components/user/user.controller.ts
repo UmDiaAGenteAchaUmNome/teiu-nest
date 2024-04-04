@@ -1,3 +1,4 @@
+import { UpdatePasswordDTO, UpdateUserDTO } from '@apidevteam/core-teiu/lib';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger/dist/decorators';
 import { User } from 'src/entities/user';
@@ -29,8 +30,13 @@ export class UserController {
     }
 
     @Put(':id')
-    public async updateUser(@Param('id') userId: number, @Body() user: User): Promise<User> {
+    public async updateUser(@Param('id') userId: number, @Body() user: UpdateUserDTO): Promise<User> {
         return await this.service.updateUser(userId, user)
+    }
+
+    @Put('/password/:id')
+    public async updateUserPassword(@Param('id') userId: number, @Body() userPassword: UpdatePasswordDTO) {
+        return await this.service.updateUserPassword(userId, userPassword)
     }
 
     @Delete(':id')
