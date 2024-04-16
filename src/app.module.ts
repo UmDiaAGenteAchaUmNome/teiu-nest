@@ -21,6 +21,7 @@ import { ImageModule } from './components/image/image.module';
 import { InstagramPostModule } from './components/instagram-post/instagram-post.module';
 import { LanguageModule } from './components/language/language.module';
 import { BannerModule } from './components/banner/banner.module';
+import { TempModule } from './components/temp/temp.module';
 import ConfigurationSettings from './config/env/env.config'
 
 @Module({
@@ -48,7 +49,8 @@ import ConfigurationSettings from './config/env/env.config'
     ImageModule,
     InstagramPostModule,
     LanguageModule,
-    BannerModule
+    BannerModule,
+    TempModule
   ],
   providers: [JwtStrategy]
 })
