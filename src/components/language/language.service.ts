@@ -17,6 +17,7 @@ export class LanguageService {
     private readonly logger = new Logger(LanguageService.name)
 
     relations: string[] = ['flagImage']
+    defaultLanguages: string[] = ['us', 'br']
 
     constructor(
         @InjectRepository(Language)
@@ -28,7 +29,9 @@ export class LanguageService {
         private readonly cloudinaryRepository: CloudinaryService,
         private readonly filter: Filter,
         private readonly imageService: ImageService
-    ) { }
+    ) {
+        this.createDefaultLanguages()
+    }
 
     public async listLanguages(filters?: Language) {
         return await this.repository.find({
@@ -45,8 +48,12 @@ export class LanguageService {
     }
 
     public async getPorgueseLanguage() {
+        return await this.getLanguageByAcronym('br')
+    }
+
+    private async getLanguageByAcronym(acronym: string) {
         return await this.repository.findOne({
-            where: { acronym: 'br' },
+            where: { acronym: acronym },
             relations: this.relations
         })
     }
@@ -96,6 +103,41 @@ export class LanguageService {
         fileReader.writeFile('src/assets/languages/us.json', JSON.stringify(languageTexts.us), (err) => {
             console.error(err)
         })
+    }
+
+    private async createDefaultLanguages() {
+
+        console.log(`Checking default languages: [${this.defaultLanguages}]`)
+
+        const brLanguage: LanguageDTO = {
+            acronym: 'BR',
+            title: 'Português',
+            flagImage: {
+                link: 'http://res.cloudinary.com/arpdevs-tecnologia/image/upload/v1706376324/teiu/flags/language-portugues.png.png',
+                publicId: 'teiu/flags/language-portugues.png',
+                title: 'br_flag'
+            }
+        }
+        const usLanguage: LanguageDTO = {
+            acronym: 'US',
+            title: 'English',
+            flagImage: {
+                link: 'http://res.cloudinary.com/arpdevs-tecnologia/image/upload/v1706376369/teiu/flags/language-english.png.png',
+                publicId: 'teiu/flags/language-english.png',
+                title: 'usa_flag'
+            }
+        }
+
+        if (!this.getLanguageByAcronym(brLanguage.acronym)) {
+            console.log(`${brLanguage.acronym} not created. Creating...`)
+            this.saveLanguage(brLanguage)
+        }
+
+        if (!this.getLanguageByAcronym(usLanguage.acronym)) {
+            console.log(`${usLanguage.acronym} not created. Creating...`)
+            this.saveLanguage(usLanguage)
+        }
+
     }
 
     private async saveCloudinaryImage(language: LanguageDTO) {
