@@ -128,17 +128,19 @@ export class LanguageService {
             }
         }
 
-        console.log(this.getLanguageByAcronym('asf'))
-        console.log(await this.getLanguageByAcronym('asf'))
+        const brLanguageDB = await this.getLanguageByAcronym(brLanguage.acronym)
+        console.log('BR language: ' + brLanguageDB)
+        const usLanguageDB = await this.getLanguageByAcronym(usLanguage.acronym)
+        console.log('US language: ' + usLanguageDB)
 
-        if (await !this.getLanguageByAcronym(brLanguage.acronym)) {
+        if (!brLanguageDB) {
             console.log(`${brLanguage.acronym} not created. Creating...`)
-            this.saveLanguage(brLanguage)
+            await this.saveLanguage(brLanguage)
         }
 
-        if (await !this.getLanguageByAcronym(usLanguage.acronym)) {
+        if (!usLanguageDB) {
             console.log(`${usLanguage.acronym} not created. Creating...`)
-            this.saveLanguage(usLanguage)
+            await this.saveLanguage(usLanguage)
         }
 
     }
