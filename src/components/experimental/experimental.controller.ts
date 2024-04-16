@@ -102,4 +102,10 @@ export class ExperimentalController {
 
         return tableData
     }
+
+    @Get('cron')
+    public upApiCronJob() {
+        console.log("=== CRON JOB ===")
+        return { cron: true }
+    }
 }
