@@ -98,14 +98,14 @@ export class LanguageService {
             const fileReader = require('fs')
 
             fileReader.writeFile('src/assets/languages/br.json', JSON.stringify(languageTexts.br), (err) => {
-                console.error(err)
+                this.logger.error(JSON.stringify(err))
             })
 
             fileReader.writeFile('src/assets/languages/us.json', JSON.stringify(languageTexts.us), (err) => {
-                console.error(err)
+                this.logger.error(JSON.stringify(err))
             })
         } catch(error) {
-            console.error(error)
+            this.logger.error(JSON.stringify(error))
         }
     }
 
