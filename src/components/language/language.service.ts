@@ -98,11 +98,11 @@ export class LanguageService {
             const fileReader = require('fs')
 
             fileReader.writeFile('src/assets/languages/br.json', JSON.stringify(languageTexts.br), (err) => {
-                this.logger.error(JSON.stringify(err))
+                this.logger.error(`Erro ao atualizar os arquivos de texto: ${err}`)
             })
 
             fileReader.writeFile('src/assets/languages/us.json', JSON.stringify(languageTexts.us), (err) => {
-                this.logger.error(JSON.stringify(err))
+                this.logger.error(`Erro ao atualizar os arquivos de texto: ${err}`)
             })
 
             this.logger.log("Atualização dos textos finalizada")
