@@ -8,9 +8,6 @@ import { CloudinaryService } from 'src/third_party/images/cloudinary/cloudinary.
 import { Repository } from 'typeorm';
 import { ImageService } from '../image/image.service';
 
-import br from 'src/assets/languages/br.json';
-import us from 'src/assets/languages/us.json';
-
 @Injectable()
 export class LanguageService {
 
@@ -77,17 +74,17 @@ export class LanguageService {
 
     public async getLanguageStaticTexts() {
         return {
-            br: br,
-            us: us
+            br: this.getPortugueseFile(),
+            us: this.getEnglishFile()
         }
     }
 
     public async getLanguageTexts(languageIdentifier: string) {
         switch (languageIdentifier) {
             case 'br':
-                return br
+                return await this.getPortugueseFile()
             case 'us':
-                return us
+                return await this.getEnglishFile()
             default:
                 throw new BadRequestException("Idioma não encontrado")
         }
@@ -95,14 +92,16 @@ export class LanguageService {
 
     public async saveLanguageStaticTexts(languageTexts: any): Promise<void> {
         try {
-            const fileReader = require('fs')
+            const fs = require('fs')
 
-            fileReader.writeFile('src/assets/languages/br.json', JSON.stringify(languageTexts.br), (err) => {
-                this.logger.error(`Erro ao atualizar os arquivos de texto: ${err}`)
+            this.logger.log("Atualizando arquivos de idioma")
+
+            fs.writeFileSync('src/assets/languages/br.json', JSON.stringify(languageTexts.br), (err) => {
+                if (err) this.logger.error(`Erro ao atualizar os arquivos de texto: ${err}`)
             })
 
-            fileReader.writeFile('src/assets/languages/us.json', JSON.stringify(languageTexts.us), (err) => {
-                this.logger.error(`Erro ao atualizar os arquivos de texto: ${err}`)
+            fs.writeFileSync('src/assets/languages/us.json', JSON.stringify(languageTexts.us), (err) => {
+                if (err) this.logger.error(`Erro ao atualizar os arquivos de texto: ${err}`)
             })
 
             this.logger.log("Atualização dos textos finalizada")
@@ -111,8 +110,21 @@ export class LanguageService {
         }
     }
 
-    private async createDefaultLanguages() {
+    private getPortugueseFile() {
+        return this.getLanguageFile('br')
+    }
 
+    private getEnglishFile() {
+        return this.getLanguageFile('us')
+    }
+
+    private getLanguageFile(languageFileName: string) {
+        const fs = require('fs')
+
+        return JSON.parse(fs.readFileSync(`src/assets/languages/${languageFileName}.json`))
+    }
+
+    private async createDefaultLanguages() {
         console.log(`Checking default languages: [${this.defaultLanguages}]`)
 
         const brLanguage: LanguageDTO = {
