@@ -94,15 +94,19 @@ export class LanguageService {
     }
 
     public async saveLanguageStaticTexts(languageTexts: any): Promise<void> {
-        const fileReader = require('fs')
+        try {
+            const fileReader = require('fs')
 
-        fileReader.writeFile('src/assets/languages/br.json', JSON.stringify(languageTexts.br), (err) => {
-            console.error(err)
-        })
+            fileReader.writeFile('src/assets/languages/br.json', JSON.stringify(languageTexts.br), (err) => {
+                console.error(err)
+            })
 
-        fileReader.writeFile('src/assets/languages/us.json', JSON.stringify(languageTexts.us), (err) => {
-            console.error(err)
-        })
+            fileReader.writeFile('src/assets/languages/us.json', JSON.stringify(languageTexts.us), (err) => {
+                console.error(err)
+            })
+        } catch(error) {
+            console.error(error)
+        }
     }
 
     private async createDefaultLanguages() {
