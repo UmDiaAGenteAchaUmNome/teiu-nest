@@ -104,6 +104,8 @@ export class LanguageService {
             fileReader.writeFile('src/assets/languages/us.json', JSON.stringify(languageTexts.us), (err) => {
                 this.logger.error(JSON.stringify(err))
             })
+
+            this.logger.log("Atualização dos textos finalizada")
         } catch(error) {
             this.logger.error(JSON.stringify(error))
         }
